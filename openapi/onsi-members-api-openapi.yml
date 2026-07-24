@@ -1,0 +1,1075 @@
+openapi: 3.0.2
+info:
+  title: BMO Partner members API
+  version: v1
+servers:
+- url: https://api.onsi.com
+  description: Production
+- url: https://api.onsi.dev
+  description: Sandbox
+security:
+- apiKey: []
+tags:
+- name: members
+paths:
+  /v1/members:
+    get:
+      tags:
+      - members
+      parameters:
+      - name: memberIds
+        in: query
+        description: Filter by internal Onsi member IDs
+        schema:
+          type: array
+          items:
+            example: mem_<id>
+            description: The unique identifier for a Member, prefixed with mem_
+            type: string
+      - name: statuses
+        in: query
+        description: Filter by member status
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - active
+            - invited
+            - inactive
+      - name: emails
+        in: query
+        description: Filter by member's email
+        schema:
+          type: array
+          items:
+            type: string
+      - name: workerIds
+        in: query
+        description: Filter by your worker IDs
+        schema:
+          type: array
+          items:
+            example: ID_123
+            description: Unique ID provided by API consumer, must be unique across all members (active, invited and inactive)
+            type: string
+      - name: skip
+        in: query
+        required: true
+        schema:
+          default: 0
+          type: number
+      - name: take
+        in: query
+        required: true
+        schema:
+          default: 50
+          type: number
+      operationId: getMembers
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  members:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Member'
+                  total:
+                    example: 1
+                    type: number
+                  skip:
+                    example: 0
+                    type: number
+                  take:
+                    example: 50
+                    type: number
+                required:
+                - members
+                - total
+                - skip
+                - take
+                additionalProperties: false
+    post:
+      tags:
+      - members
+      parameters:
+      - name: x-idempotency-key
+        in: header
+        description: Unique key to ensure idempotency of the request
+        schema:
+          type: string
+      operationId: inviteMember
+      requestBody:
+        description: Body
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  example: jane-smith@onsi.com
+                  description: A unique email address for the member
+                  type: string
+                  format: email
+                  pattern: ^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$
+                firstName:
+                  example: John
+                  type: string
+                lastName:
+                  example: Smith
+                  type: string
+                phone:
+                  example: '+447123456789'
+                  description: An optional phone number for the member
+                  type: string
+                workerId:
+                  example: ID_123
+                  description: Unique ID provided by API consumer, must be unique across all members (active, invited and inactive)
+                  type: string
+                tier:
+                  example: Gold
+                  description: Tier name for the member
+                  type: string
+                accountDetails:
+                  anyOf:
+                  - anyOf:
+                    - title: BankAccountUK
+                      example:
+                        accountHolder: John Smith
+                        sortCode: '123456'
+                        accountNumber: '12345678'
+                      description: A UK bank account
+                      type: object
+                      properties:
+                        accountHolder:
+                          type: string
+                        sortCode:
+                          type: string
+                        accountNumber:
+                          type: string
+                      required:
+                      - accountHolder
+                      - sortCode
+                      - accountNumber
+                      additionalProperties: false
+                    - title: BankAccountEU
+                      example:
+                        accountHolder: John Smith
+                        iban: GB29NWBK60161331926819
+                      description: A EU bank account
+                      type: object
+                      properties:
+                        accountHolder:
+                          type: string
+                        iban:
+                          type: string
+                      required:
+                      - accountHolder
+                      - iban
+                      additionalProperties: false
+                    nullable: true
+                enablePayroll:
+                  type: boolean
+                dob:
+                  example: '1990-01-01'
+                  description: Date of birth of the member, must later than 1900
+                  type: string
+                  pattern: ^\d{4}-\d{2}-\d{2}$
+                gender:
+                  anyOf:
+                  - description: Gender of the member
+                    type: string
+                    enum:
+                    - Female
+                    - Male
+                    - NonBinary
+                    nullable: true
+              required:
+              - email
+              - firstName
+              - lastName
+              - tier
+              additionalProperties: false
+      responses:
+        '201':
+          description: A member on the platform.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Member'
+  /v1/members/{id}:
+    get:
+      tags:
+      - members
+      parameters:
+      - name: id
+        in: path
+        description: The unique identifier for a Member, prefixed with mem_
+        required: true
+        schema:
+          example: mem_<id>
+          type: string
+      operationId: getMember
+      responses:
+        '200':
+          description: A member on the platform.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Member'
+    patch:
+      tags:
+      - members
+      parameters:
+      - name: id
+        in: path
+        description: The unique identifier for a Member, prefixed with mem_
+        required: true
+        schema:
+          example: mem_<id>
+          type: string
+      - name: x-idempotency-key
+        in: header
+        description: Unique key to ensure idempotency of the request
+        schema:
+          type: string
+      operationId: updateMember
+      requestBody:
+        description: Body
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  description: This can only be changed if member status is `invited`
+                  type: string
+                  format: email
+                  pattern: ^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$
+                firstName:
+                  description: First name of the member
+                  type: string
+                lastName:
+                  description: Last name of the member
+                  type: string
+                phone:
+                  description: Phone number
+                  type: string
+                workerId:
+                  anyOf:
+                  - example: ID_123
+                    description: Unique ID provided by API consumer, must be unique across all members (active, invited and inactive)
+                    type: string
+                    nullable: true
+                tier:
+                  description: Tier name
+                  type: string
+                accountDetails:
+                  anyOf:
+                  - anyOf:
+                    - title: BankAccountUK
+                      example:
+                        accountHolder: John Smith
+                        sortCode: '123456'
+                        accountNumber: '12345678'
+                      description: A UK bank account
+                      type: object
+                      properties:
+                        accountHolder:
+                          type: string
+                        sortCode:
+                          type: string
+                        accountNumber:
+                          type: string
+                      required:
+                      - accountHolder
+                      - sortCode
+                      - accountNumber
+                      additionalProperties: false
+                    - title: BankAccountEU
+                      example:
+                        accountHolder: John Smith
+                        iban: GB29NWBK60161331926819
+                      description: A EU bank account
+                      type: object
+                      properties:
+                        accountHolder:
+                          type: string
+                        iban:
+                          type: string
+                      required:
+                      - accountHolder
+                      - iban
+                      additionalProperties: false
+                    nullable: true
+                enablePayroll:
+                  type: boolean
+                dob:
+                  example: '1990-01-01'
+                  description: Date of birth of the member, must later than 1900
+                  type: string
+                  pattern: ^\d{4}-\d{2}-\d{2}$
+                gender:
+                  anyOf:
+                  - description: Gender of the member
+                    type: string
+                    enum:
+                    - Female
+                    - Male
+                    - NonBinary
+                    nullable: true
+              additionalProperties: false
+      responses:
+        '200':
+          description: A member on the platform.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Member'
+    put:
+      tags:
+      - members
+      parameters:
+      - name: id
+        in: path
+        description: The unique identifier for a Member, prefixed with mem_
+        required: true
+        schema:
+          example: mem_<id>
+          type: string
+      - name: x-idempotency-key
+        in: header
+        description: Unique key to ensure idempotency of the request
+        schema:
+          type: string
+      operationId: replaceMember
+      requestBody:
+        description: Body
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  example: jane-smith@onsi.com
+                  description: A unique email address for the member
+                  type: string
+                  format: email
+                  pattern: ^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$
+                firstName:
+                  example: John
+                  type: string
+                lastName:
+                  example: Smith
+                  type: string
+                phone:
+                  example: '+447123456789'
+                  description: An optional phone number for the member
+                  type: string
+                workerId:
+                  example: ID_123
+                  description: Unique ID provided by API consumer, must be unique across all members (active, invited and inactive)
+                  type: string
+                tier:
+                  example: Gold
+                  description: Tier name for the member
+                  type: string
+                accountDetails:
+                  anyOf:
+                  - anyOf:
+                    - title: BankAccountUK
+                      example:
+                        accountHolder: John Smith
+                        sortCode: '123456'
+                        accountNumber: '12345678'
+                      description: A UK bank account
+                      type: object
+                      properties:
+                        accountHolder:
+                          type: string
+                        sortCode:
+                          type: string
+                        accountNumber:
+                          type: string
+                      required:
+                      - accountHolder
+                      - sortCode
+                      - accountNumber
+                      additionalProperties: false
+                    - title: BankAccountEU
+                      example:
+                        accountHolder: John Smith
+                        iban: GB29NWBK60161331926819
+                      description: A EU bank account
+                      type: object
+                      properties:
+                        accountHolder:
+                          type: string
+                        iban:
+                          type: string
+                      required:
+                      - accountHolder
+                      - iban
+                      additionalProperties: false
+                    nullable: true
+                enablePayroll:
+                  type: boolean
+                dob:
+                  example: '1990-01-01'
+                  description: Date of birth of the member, must later than 1900
+                  type: string
+                  pattern: ^\d{4}-\d{2}-\d{2}$
+                gender:
+                  anyOf:
+                  - description: Gender of the member
+                    type: string
+                    enum:
+                    - Female
+                    - Male
+                    - NonBinary
+                    nullable: true
+              required:
+              - email
+              - firstName
+              - lastName
+              - tier
+              additionalProperties: false
+      responses:
+        '200':
+          description: A member on the platform.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Member'
+    delete:
+      tags:
+      - members
+      parameters:
+      - name: id
+        in: path
+        description: The unique identifier for a Member, prefixed with mem_
+        required: true
+        schema:
+          example: mem_<id>
+          type: string
+      - name: x-idempotency-key
+        in: header
+        description: Unique key to ensure idempotency of the request
+        schema:
+          type: string
+      operationId: removeMember
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    enum:
+                    - OK
+                required:
+                - message
+                additionalProperties: false
+  /v1/members/jobs/csv:
+    put:
+      tags:
+      - members
+      parameters:
+      - name: x-idempotency-key
+        in: header
+        description: Unique key to ensure idempotency of the request
+        schema:
+          type: string
+      operationId: createJobFromCsv
+      responses:
+        '202':
+          description: '202'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  jobId:
+                    example: maj_cltd2zp7100096tmbamb9c46o
+                    type: string
+                required:
+                - jobId
+                additionalProperties: false
+  /v2/members/jobs/csv:
+    put:
+      tags:
+      - members
+      parameters:
+      - name: x-idempotency-key
+        in: header
+        description: Unique key to ensure idempotency of the request
+        schema:
+          type: string
+      operationId: createJobFromCsvV2
+      responses:
+        '202':
+          description: '202'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  jobId:
+                    example: maj_cltd2zp7100096tmbamb9c46o
+                    type: string
+                required:
+                - jobId
+                additionalProperties: false
+  /v1/members/jobs/{jobId}:
+    get:
+      tags:
+      - members
+      parameters:
+      - name: jobId
+        in: path
+        required: true
+        schema:
+          type: string
+      operationId: getJob
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    example: maj_cltd2zp7100096tmbamb9c46o
+                    type: string
+                  progress:
+                    type: object
+                    properties:
+                      type:
+                        example: Processing
+                        type: string
+                        enum:
+                        - Processing
+                        - Completed
+                        - AwaitingReview
+                        - NotReady
+                        - Rejected
+                      totalActions:
+                        example: 100
+                        type: number
+                      totalComplete:
+                        example: 85
+                        type: number
+                      totalProcessing:
+                        example: 15
+                        type: number
+                    required:
+                    - type
+                    - totalActions
+                    - totalComplete
+                    - totalProcessing
+                    additionalProperties: false
+                  createdAt:
+                    example: '2024-01-01'
+                    type: string
+                required:
+                - id
+                - progress
+                - createdAt
+                additionalProperties: false
+  /v1/members/jobs:
+    post:
+      tags:
+      - members
+      parameters:
+      - name: x-idempotency-key
+        in: header
+        description: Unique key to ensure idempotency of the request
+        schema:
+          type: string
+      operationId: createJob
+      requestBody:
+        description: Body
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                actions:
+                  minItems: 1
+                  type: array
+                  items:
+                    anyOf:
+                    - description: Add a new member
+                      title: Add
+                      type: object
+                      properties:
+                        email:
+                          example: jane-smith@onsi.com
+                          description: A unique email address for the member
+                          type: string
+                          format: email
+                          pattern: ^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$
+                        firstName:
+                          example: John
+                          type: string
+                        lastName:
+                          example: Smith
+                          type: string
+                        phone:
+                          example: '+447123456789'
+                          description: An optional phone number for the member
+                          type: string
+                        workerId:
+                          example: ID_123
+                          description: Unique ID provided by API consumer, must be unique across all members (active, invited and inactive)
+                          type: string
+                        tier:
+                          example: Gold
+                          description: Tier name for the member
+                          type: string
+                        accountDetails:
+                          anyOf:
+                          - anyOf:
+                            - title: BankAccountUK
+                              example:
+                                accountHolder: John Smith
+                                sortCode: '123456'
+                                accountNumber: '12345678'
+                              description: A UK bank account
+                              type: object
+                              properties:
+                                accountHolder:
+                                  type: string
+                                sortCode:
+                                  type: string
+                                accountNumber:
+                                  type: string
+                              required:
+                              - accountHolder
+                              - sortCode
+                              - accountNumber
+                              additionalProperties: false
+                            - title: BankAccountEU
+                              example:
+                                accountHolder: John Smith
+                                iban: GB29NWBK60161331926819
+                              description: A EU bank account
+                              type: object
+                              properties:
+                                accountHolder:
+                                  type: string
+                                iban:
+                                  type: string
+                              required:
+                              - accountHolder
+                              - iban
+                              additionalProperties: false
+                            nullable: true
+                        enablePayroll:
+                          type: boolean
+                        dob:
+                          example: '1990-01-01'
+                          description: Date of birth of the member, must later than 1900
+                          type: string
+                          pattern: ^\d{4}-\d{2}-\d{2}$
+                        gender:
+                          anyOf:
+                          - description: Gender of the member
+                            type: string
+                            enum:
+                            - Female
+                            - Male
+                            - NonBinary
+                            nullable: true
+                        type:
+                          type: string
+                          enum:
+                          - Add
+                      required:
+                      - email
+                      - firstName
+                      - lastName
+                      - tier
+                      - type
+                      additionalProperties: false
+                    - description: Replace an existing member
+                      title: Replace
+                      type: object
+                      properties:
+                        email:
+                          example: jane-smith@onsi.com
+                          description: A unique email address for the member
+                          type: string
+                          format: email
+                          pattern: ^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$
+                        firstName:
+                          example: John
+                          type: string
+                        lastName:
+                          example: Smith
+                          type: string
+                        phone:
+                          example: '+447123456789'
+                          description: An optional phone number for the member
+                          type: string
+                        workerId:
+                          example: ID_123
+                          description: Unique ID provided by API consumer, must be unique across all members (active, invited and inactive)
+                          type: string
+                        tier:
+                          example: Gold
+                          description: Tier name for the member
+                          type: string
+                        accountDetails:
+                          anyOf:
+                          - anyOf:
+                            - title: BankAccountUK
+                              example:
+                                accountHolder: John Smith
+                                sortCode: '123456'
+                                accountNumber: '12345678'
+                              description: A UK bank account
+                              type: object
+                              properties:
+                                accountHolder:
+                                  type: string
+                                sortCode:
+                                  type: string
+                                accountNumber:
+                                  type: string
+                              required:
+                              - accountHolder
+                              - sortCode
+                              - accountNumber
+                              additionalProperties: false
+                            - title: BankAccountEU
+                              example:
+                                accountHolder: John Smith
+                                iban: GB29NWBK60161331926819
+                              description: A EU bank account
+                              type: object
+                              properties:
+                                accountHolder:
+                                  type: string
+                                iban:
+                                  type: string
+                              required:
+                              - accountHolder
+                              - iban
+                              additionalProperties: false
+                            nullable: true
+                        enablePayroll:
+                          type: boolean
+                        dob:
+                          example: '1990-01-01'
+                          description: Date of birth of the member, must later than 1900
+                          type: string
+                          pattern: ^\d{4}-\d{2}-\d{2}$
+                        gender:
+                          anyOf:
+                          - description: Gender of the member
+                            type: string
+                            enum:
+                            - Female
+                            - Male
+                            - NonBinary
+                            nullable: true
+                        type:
+                          type: string
+                          enum:
+                          - Replace
+                        memberId:
+                          example: mem_<id>
+                          description: The unique identifier for a Member, prefixed with mem_
+                          type: string
+                      required:
+                      - email
+                      - firstName
+                      - lastName
+                      - tier
+                      - type
+                      - memberId
+                      additionalProperties: false
+                    - description: Update an existing member
+                      title: Update
+                      type: object
+                      properties:
+                        email:
+                          description: This can only be changed if member status is `invited`
+                          type: string
+                          format: email
+                          pattern: ^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$
+                        firstName:
+                          description: First name of the member
+                          type: string
+                        lastName:
+                          description: Last name of the member
+                          type: string
+                        phone:
+                          description: Phone number
+                          type: string
+                        workerId:
+                          anyOf:
+                          - example: ID_123
+                            description: Unique ID provided by API consumer, must be unique across all members (active, invited and inactive)
+                            type: string
+                            nullable: true
+                        tier:
+                          description: Tier name
+                          type: string
+                        accountDetails:
+                          anyOf:
+                          - anyOf:
+                            - title: BankAccountUK
+                              example:
+                                accountHolder: John Smith
+                                sortCode: '123456'
+                                accountNumber: '12345678'
+                              description: A UK bank account
+                              type: object
+                              properties:
+                                accountHolder:
+                                  type: string
+                                sortCode:
+                                  type: string
+                                accountNumber:
+                                  type: string
+                              required:
+                              - accountHolder
+                              - sortCode
+                              - accountNumber
+                              additionalProperties: false
+                            - title: BankAccountEU
+                              example:
+                                accountHolder: John Smith
+                                iban: GB29NWBK60161331926819
+                              description: A EU bank account
+                              type: object
+                              properties:
+                                accountHolder:
+                                  type: string
+                                iban:
+                                  type: string
+                              required:
+                              - accountHolder
+                              - iban
+                              additionalProperties: false
+                            nullable: true
+                        enablePayroll:
+                          type: boolean
+                        dob:
+                          example: '1990-01-01'
+                          description: Date of birth of the member, must later than 1900
+                          type: string
+                          pattern: ^\d{4}-\d{2}-\d{2}$
+                        gender:
+                          anyOf:
+                          - description: Gender of the member
+                            type: string
+                            enum:
+                            - Female
+                            - Male
+                            - NonBinary
+                            nullable: true
+                        type:
+                          type: string
+                          enum:
+                          - Update
+                        memberId:
+                          example: mem_<id>
+                          description: The unique identifier for a Member, prefixed with mem_
+                          type: string
+                      required:
+                      - type
+                      - memberId
+                      additionalProperties: false
+                    - description: Offboard a member
+                      title: Offboard
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                          - Offboard
+                        memberId:
+                          example: mem_<id>
+                          description: The unique identifier for a Member, prefixed with mem_
+                          type: string
+                      required:
+                      - type
+                      - memberId
+                      additionalProperties: false
+              required:
+              - actions
+              additionalProperties: false
+      responses:
+        '202':
+          description: '202'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  jobId:
+                    example: maj_cltd2zp7100096tmbamb9c46o
+                    type: string
+                required:
+                - jobId
+                additionalProperties: false
+  /v1/tiers:
+    get:
+      tags:
+      - members
+      operationId: getTiers
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tier'
+components:
+  schemas:
+    BankAccountUK:
+      title: BankAccountUK
+      example:
+        accountHolder: John Smith
+        sortCode: '123456'
+        accountNumber: '12345678'
+      description: A UK bank account
+      type: object
+      properties:
+        accountHolder:
+          type: string
+        sortCode:
+          type: string
+        accountNumber:
+          type: string
+      required:
+      - accountHolder
+      - sortCode
+      - accountNumber
+      additionalProperties: false
+    Member:
+      title: Member
+      description: A member on the platform.
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          pattern: ^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$
+        memberId:
+          example: mem_q5sdae3se6eg9m9dcvug
+          description: Onsi's ID of the member
+          type: string
+        firstName:
+          example: John
+          type: string
+        lastName:
+          example: Smith
+          type: string
+        phone:
+          example: '+447123456789'
+          anyOf:
+          - type: string
+            nullable: true
+        tier:
+          example: Gold
+          description: Tier name for the member
+          type: string
+        workerId:
+          anyOf:
+          - example: ID_123
+            description: Unique ID provided by API consumer, must be unique across all members (active, invited and inactive)
+            type: string
+            nullable: true
+        status:
+          description: The status of the member.
+          type: string
+          enum:
+          - active
+          - invited
+          - inactive
+        accountDetails:
+          anyOf:
+          - anyOf:
+            - $ref: '#/components/schemas/BankAccountUK'
+            - $ref: '#/components/schemas/BankAccountEU'
+            nullable: true
+        enablePayroll:
+          example: true
+          type: boolean
+        gender:
+          anyOf:
+          - description: Gender of the member
+            type: string
+            enum:
+            - Female
+            - Male
+            - NonBinary
+            nullable: true
+        dob:
+          example: '1990-01-01'
+          description: Date of birth of the member, must later than 1900
+          anyOf:
+          - description: Date in ISO8601 `YYYY-MM-DD` format
+            type: string
+            pattern: ^\d{4}-\d{2}-\d{2}$
+            nullable: true
+      required:
+      - email
+      - memberId
+      - firstName
+      - lastName
+      - phone
+      - tier
+      - workerId
+      - status
+      - accountDetails
+      - enablePayroll
+      - dob
+      additionalProperties: false
+    Tier:
+      title: Tier
+      description: A group within the platform that members can be assigned to, tiers can have different offerings
+      type: object
+      properties:
+        name:
+          example: Gold
+          description: The name of the tier
+          type: string
+      required:
+      - name
+      additionalProperties: false
+    BankAccountEU:
+      title: BankAccountEU
+      example:
+        accountHolder: John Smith
+        iban: GB29NWBK60161331926819
+      description: A EU bank account
+      type: object
+      properties:
+        accountHolder:
+          type: string
+        iban:
+          type: string
+      required:
+      - accountHolder
+      - iban
+      additionalProperties: false
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: x-api-key
