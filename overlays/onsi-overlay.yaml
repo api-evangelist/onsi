@@ -1,0 +1,28 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Onsi (BMO Partner API)
+  version: 1.0.0
+extends: openapi/onsi-openapi-original.json
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-provider: onsi
+      x-apievangelist-enriched: '2026-07-20'
+      description: >-
+        The Onsi (BMO) Partner API lets benefit-program partners manage members
+        and operate on-demand ("Embedded") Pay: create, update, replace, and
+        offboard members individually, in batches, or via full-list CSV upload;
+        read tiers and balances; create and complete pay withdrawals; and read
+        pay cycles and deductions. Auth is an x-api-key header; requests support
+        idempotency via x-idempotency-key (7-day retention); list endpoints use
+        skip/take offset pagination; errors return a code/message envelope.
+  - target: $.components.securitySchemes.apiKey
+    update:
+      description: >-
+        API key sent in the x-api-key request header. Request a key from the
+        Onsi team. Sandbox keys operate against https://api.onsi.dev.
+  - target: $.info
+    update:
+      x-apievangelist-conventions: conventions/onsi-conventions.yml
+      x-apievangelist-errors: errors/onsi-error-codes.yml
+      x-apievangelist-rate-limits: rate-limits/onsi-rate-limits.yml

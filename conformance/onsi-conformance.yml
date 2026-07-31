@@ -1,0 +1,38 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/onsi-openapi-original.json + https://docs.onsi.com
+standards:
+  - id: oauth2
+    conforms: false
+    evidence: Auth is a static x-api-key header; no OAuth2 flows declared.
+  - id: oidc
+    conforms: false
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: >-
+      Errors use a custom code/message (and issues[]) envelope, not
+      application/problem+json.
+  - id: idempotency
+    conforms: true
+    evidence: >-
+      x-idempotency-key request header supported across mutation endpoints with
+      7-day retention (docs/api-reference/idempotency).
+  - id: pagination
+    conforms: true
+    evidence: Offset pagination via skip/take query params on all list endpoints.
+  - id: rate-limiting
+    conforms: true
+    evidence: 100 rps per client; 429 RateLimitExceeded on breach.
+  - id: json-api
+    conforms: false
+  - id: fhir
+    conforms: false
+  - id: fapi
+    conforms: false
+  - id: scim
+    conforms: false
+  - id: iso4217-money
+    conforms: true
+    evidence: >-
+      Monetary values use a Money object (amount in minor units + ISO 4217
+      currency code).

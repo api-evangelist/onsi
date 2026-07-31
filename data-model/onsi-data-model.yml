@@ -1,0 +1,58 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/onsi-openapi-original.json + https://docs.onsi.com/docs/schemas
+entities:
+  - name: Member
+    id_prefix: mem_
+    fields: [email, memberId, firstName, lastName, phone, tier, workerId, status, accountDetails, enablePayroll, gender, dob]
+    statuses: [active, invited, inactive]
+    notes: A worker enrolled in a partner's benefit programme.
+  - name: Tier
+    fields: [name]
+    notes: Membership level/cohort; each member has exactly one tier.
+  - name: BankAccount
+    variants: [BankAccountUK, BankAccountEU]
+    notes: Member payout account details (accountDetails on Member).
+  - name: Money
+    fields: [amount, currency]
+    notes: Amount in the currency's minor unit + ISO 4217 currency code.
+  - name: PayCycle
+    fields: [id, startDate, endDate, status]
+    notes: A pay period against which balances and withdrawals accrue.
+  - name: PayRun
+    variants: [PayRunDraft, PayRunReverted, PayRunAvailable, PayRunScheduled]
+    notes: A partner-uploaded payroll run feeding available balances.
+  - name: Withdrawal
+    fields: [id, netAmount, fee, payCycleId, memberId, createdAt]
+    notes: An on-demand pay withdrawal made by a member.
+  - name: AvailableBalance
+    fields: [availableBalance, lowerLimit, upperLimit, netAmount, fee]
+    notes: A member's withdrawable balance with per-withdrawal limits and fees.
+  - name: Job
+    id_prefix: job
+    notes: Async batch/CSV member-action job; polled via jobId (getJob).
+relationships:
+  - from: Member
+    to: Tier
+    type: has_one
+    via: tier
+  - from: Member
+    to: BankAccount
+    type: has_one
+    via: accountDetails
+  - from: Withdrawal
+    to: Member
+    type: belongs_to
+    via: memberId
+  - from: Withdrawal
+    to: PayCycle
+    type: belongs_to
+    via: payCycleId
+  - from: AvailableBalance
+    to: Member
+    type: belongs_to
+    via: memberId
+  - from: PayCycle
+    to: Withdrawal
+    type: has_many
+    via: payCycleId

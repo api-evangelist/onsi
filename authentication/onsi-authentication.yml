@@ -1,0 +1,18 @@
+generated: '2026-07-20'
+method: searched
+source: openapi/onsi-openapi-original.json
+docs: https://docs.onsi.com/api-reference/introduction
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+  key_provisioning: Request an API key from the Onsi team; a distinct key is issued per environment (production vs sandbox api.onsi.dev).
+schemes:
+- name: apiKey
+  type: apiKey
+  in: header
+  parameter: x-api-key
+  docs: https://docs.onsi.com/api-reference/introduction
+  sources:
+  - openapi/onsi-openapi-original.json

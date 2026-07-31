@@ -1,0 +1,20 @@
+generated: '2026-07-20'
+method: searched
+source: https://docs.onsi.com/api-reference/rate-limits
+rate_limits:
+  - scope: per-client
+    limit_count: 100
+    interval: second
+    burst: Short bursts above the limit are tolerated within reasonable bounds.
+    exceeded_status: 429
+    exceeded_code: RateLimitExceeded
+signaling:
+  headers: []
+  note: >-
+    No documented rate-limit response headers; clients should implement
+    exponential backoff and monitor request rates. Batch endpoints are
+    recommended to stay within limits.
+best_practices:
+  - Implement exponential backoff in client applications.
+  - Monitor request rates to stay within limits.
+  - Use batch endpoints where possible.

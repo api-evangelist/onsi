@@ -1,0 +1,126 @@
+generated: '2026-07-20'
+method: searched
+source: https://docs.onsi.com/api-reference/error-handling
+format: custom-json
+envelope:
+  description: >-
+    The Onsi API returns a consistent JSON error structure. Validation errors
+    return an `issues` array (each issue has `code`, `message`, and `path`).
+    Other errors return a top-level object with `code`, `message`, and any
+    error-specific fields. Always branch on `code`, not `message`.
+  discriminator: code
+  example:
+    issues:
+      - code: HeaderValidation
+        message: Required
+        path: x-api-key
+      - code: BodyValidation
+        message: Required
+        path: currency
+errors:
+  # --- Generic ---
+  - code: InternalServerError
+    category: generic
+    http_status: 500
+    meaning: An unexpected error occurred.
+    action: Retry with backoff; contact support if it persists.
+  - code: BadRequest
+    category: generic
+    http_status: 400
+    meaning: >-
+      The request is malformed or invalid and no more specific error code
+      applies.
+    action: Correct the request per the message and retry.
+  - code: Forbidden
+    category: generic
+    http_status: 403
+    meaning: The caller is not allowed to perform the requested action.
+    action: Verify API-key permissions.
+  - code: NotFound
+    category: generic
+    http_status: 404
+    meaning: The requested resource does not exist.
+    action: Verify the resource identifier.
+  - code: Conflict
+    category: generic
+    http_status: 409
+    meaning: The request conflicts with the current state of the server.
+    action: Re-fetch state and reconcile before retrying.
+  - code: RateLimitExceeded
+    category: generic
+    http_status: 429
+    meaning: The request was rate limited (>100 rps per client).
+    action: Implement exponential backoff and reduce request frequency.
+  - code: UnprocessableEntity
+    category: generic
+    http_status: 422
+    meaning: >-
+      The request is valid but cannot be processed due to business logic or
+      other constraints.
+    action: Inspect the message for the constraint that failed.
+  # --- Request validation ---
+  - code: BodyValidation
+    category: validation
+    fields: [code, message, path]
+    meaning: An error occurred while validating the request body.
+  - code: QueryValidation
+    category: validation
+    fields: [code, message, path]
+    meaning: An error occurred while validating the request query parameters.
+  - code: PathValidation
+    category: validation
+    fields: [code, message, path]
+    meaning: An error occurred while validating the request path parameters.
+  - code: HeaderValidation
+    category: validation
+    fields: [code, message, path]
+    meaning: An error occurred while validating the request headers.
+  # --- Specific ---
+  - code: MemberNotFound
+    category: specific
+    fields: [code, message, memberId]
+    meaning: The member could not be found.
+  - code: MemberNotEligible
+    category: specific
+    fields: [code, message, memberId]
+    meaning: The member is not eligible to perform the requested action.
+  - code: MemberAlreadyInvited
+    category: specific
+    fields: [code, message, memberId]
+    meaning: The member has already been invited.
+  - code: MemberInsufficientFunds
+    category: specific
+    fields: [code, message, memberId]
+    meaning: The member does not have enough funds to perform the requested action.
+  - code: BankAccountInvalid
+    category: specific
+    fields: [code, message]
+    meaning: The bank account provided is invalid.
+  - code: FileContent
+    category: specific
+    fields: [code, message, row]
+    meaning: An error occurred while processing file content (CSV/Excel uploads).
+  - code: AmountBelowLowerLimit
+    category: specific
+    fields: [code, message, lowerLimit]
+    meaning: >-
+      The requested withdrawal-intent amount is below the minimum; the response
+      includes the minimum withdrawable amount.
+  - code: AmountAboveUpperLimit
+    category: specific
+    fields: [code, message, upperLimit]
+    meaning: >-
+      The requested withdrawal-intent amount is above the maximum; the response
+      includes the maximum withdrawable amount.
+  - code: InvalidAddMemberPayload
+    category: specific
+    fields: [code, message, email]
+    meaning: The payload provided to add a member is invalid.
+  - code: InvalidUpdateMemberPayload
+    category: specific
+    fields: [code, message, memberId]
+    meaning: The payload provided to update a member is invalid.
+  - code: InvalidRemoveMemberPayload
+    category: specific
+    fields: [code, message, memberId]
+    meaning: The payload provided to remove a member is invalid.

@@ -1,9 +1,30 @@
 aid: onsi
 name: Onsi
-description: 'Onsi is a company surfaced as a portfolio company of prosus-ventures and added to the API
-  Evangelist network as a stub for enrichment. Sector: health. This profile is a lead awaiting the enrichment
-  pipeline.'
+description: >-
+  Onsi is a global technology provider and UK/EU insurance intermediary that
+  delivers flexible, shift-linked worker benefits — on-demand ("Embedded") pay,
+  insurance cover, and a rewards marketplace — to employers and their frontline
+  workers. Its Partner (BMO) API lets benefit-program partners manage members
+  (invite, read, update, replace, and offboard individually, in batches, or via
+  full-list CSV jobs), read tiers and earned-wage balances, run on-demand pay
+  withdrawals through a two-step intent/complete flow, and reconcile pay cycles
+  and deductions with payroll. Authentication is an x-api-key header; requests
+  support idempotency (x-idempotency-key, 7-day retention) and skip/take offset
+  pagination, with a consistent code/message error envelope.
 url: https://raw.githubusercontent.com/api-evangelist/onsi/refs/heads/main/apis.yml
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://framerusercontent.com/assets/Kgx16PhdTJfIAzqiv0XeASdgeZU.jpg
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
@@ -12,11 +33,47 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-20'
 tags:
 - Company
+- Benefits
+- Earned Wage Access
+- On-Demand Pay
+- Payroll
+- Fintech
+- Insurance
+- Workforce
+- HR
 - Health
-apis: []
+apis:
+- aid: onsi:onsi-members-api
+  name: Onsi members API
+  description: The members API from Onsi — 7 operation(s) for members.
+  humanURL: https://docs.onsi.com
+  baseURL: https://api.onsi.com
+  tags:
+  - members
+  properties:
+  - type: OpenAPI
+    url: openapi/onsi-members-api-openapi.yml
+  - type: Documentation
+    url: https://docs.onsi.com
+  - type: APIReference
+    url: https://docs.onsi.com/api-reference/introduction
+- aid: onsi:onsi-pay-api
+  name: Onsi pay API
+  description: The pay API from Onsi — 9 operation(s) for pay.
+  humanURL: https://docs.onsi.com
+  baseURL: https://api.onsi.com
+  tags:
+  - pay
+  properties:
+  - type: OpenAPI
+    url: openapi/onsi-pay-api-openapi.yml
+  - type: Documentation
+    url: https://docs.onsi.com
+  - type: APIReference
+    url: https://docs.onsi.com/api-reference/introduction
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -25,3 +82,56 @@ maintainers:
 common:
 - type: Website
   url: https://onsi.com
+- type: DeveloperPortal
+  url: https://docs.onsi.com
+- type: Documentation
+  url: https://docs.onsi.com
+- type: APIReference
+  url: https://docs.onsi.com/api-reference/introduction
+- type: GettingStarted
+  url: https://docs.onsi.com/docs/member-management/get-started
+- type: Support
+  url: https://onsi.com/contact
+- type: Blog
+  url: https://onsi.com/blog
+- type: PrivacyPolicy
+  url: https://pages.onsi.com/onsi-global-privacy-policy
+- type: TermsOfService
+  url: https://pages.onsi.com/onsi-terms-of-use-uk-and-row
+- type: ChangeLog
+  url: https://docs.onsi.com/docs/changelog
+- type: ChangeLog
+  url: changelog/onsi-changelog.yml
+- type: LLMsTxt
+  url: llms/onsi-llms.txt
+- type: Authentication
+  url: authentication/onsi-authentication.yml
+- type: Conventions
+  url: conventions/onsi-conventions.yml
+- type: Idempotency
+  url: conventions/onsi-conventions.yml
+- type: ErrorCatalog
+  url: errors/onsi-error-codes.yml
+- type: RateLimits
+  url: rate-limits/onsi-rate-limits.yml
+- type: Lifecycle
+  url: lifecycle/onsi-lifecycle.yml
+- type: Conformance
+  url: conformance/onsi-conformance.yml
+- type: DataModel
+  url: data-model/onsi-data-model.yml
+- type: Sandbox
+  url: sandbox/onsi-sandbox.yml
+- type: MCPServer
+  url: mcp/onsi-mcp.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: DomainSecurity
+  url: security/onsi-domain-security.yml
+- type: AgenticAccess
+  url: agentic-access/onsi-agentic-access.yml
+x-enrichment:
+  date: '2026-07-20'
+  status: enriched
+  artifacts_added: 20
+  pass: local-v1

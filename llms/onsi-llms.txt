@@ -1,0 +1,44 @@
+# Onsi API
+
+> The Onsi API is a RESTful API that allows you to manage your Onsi platform
+
+## Docs
+
+- [Error Handling](https://docs.onsi.com/api-reference/error-handling.md): Learn how to handle errors from the API.
+- [Idempotency](https://docs.onsi.com/api-reference/idempotency.md): Learn how to make idempotent requests to the Onsi API.
+- [Introduction](https://docs.onsi.com/api-reference/introduction.md): Learn how to interact with the Onsi API
+- [Create Batch Job](https://docs.onsi.com/api-reference/jobs/batch-job.md)
+- [Upload Full Member List CSV](https://docs.onsi.com/api-reference/jobs/csv.md)
+- [Upload Full Member List CSV V2](https://docs.onsi.com/api-reference/jobs/csv-v2.md)
+- [Get Job](https://docs.onsi.com/api-reference/jobs/get-job.md)
+- [Remove Member](https://docs.onsi.com/api-reference/members/delete.md)
+- [Get Member](https://docs.onsi.com/api-reference/members/get.md)
+- [Get Tiers](https://docs.onsi.com/api-reference/members/get-tiers.md)
+- [Update Member](https://docs.onsi.com/api-reference/members/patch.md)
+- [Invite Member](https://docs.onsi.com/api-reference/members/post.md)
+- [Replace Member](https://docs.onsi.com/api-reference/members/put.md)
+- [Search Members](https://docs.onsi.com/api-reference/members/search.md)
+- [Complete Withdrawal](https://docs.onsi.com/api-reference/pay/complete-withdrawal.md)
+- [Create Withdrawal Intent](https://docs.onsi.com/api-reference/pay/create-withdrawal-intent.md)
+- [Get Cycle](https://docs.onsi.com/api-reference/pay/get-cycle.md)
+- [Get Cycle Deductions](https://docs.onsi.com/api-reference/pay/get-cycle-deductions.md)
+- [Get Cycles](https://docs.onsi.com/api-reference/pay/get-cycles.md): Search pay cycles, returns the latest pay cycle first
+- [Get Member Balance](https://docs.onsi.com/api-reference/pay/get-member-balance.md)
+- [Get Member Withdrawals](https://docs.onsi.com/api-reference/pay/get-member-withdrawals.md)
+- [Get Withdrawals](https://docs.onsi.com/api-reference/pay/get-withdrawals.md)
+- [Create Pay Run](https://docs.onsi.com/api-reference/pay/upload-pay.md)
+- [Rate Limits](https://docs.onsi.com/api-reference/rate-limits.md): Learn about what rate limits are and how to handle them.
+- [Changelog](https://docs.onsi.com/docs/changelog.md)
+- [Get Started](https://docs.onsi.com/docs/member-management/get-started.md): Everything you need to know about managing your members via the Onsi Member API. Below you'll find documentation on how to create and update your members without the need for manual administration via the Onsi Platform.
+- [Embedded Pay](https://docs.onsi.com/docs/pay/embedded-pay.md): Everything you need to know about how to seamlessly manage your Pay programme with the Onsi On-demand Pay API. Below you'll find documentation on how to integrate Pay into your application.
+- [End of Cycle Processing](https://docs.onsi.com/docs/pay/end-of-cycle.md): Learn how to efficiently process end of cycle deductions and integrate them with your payroll system using the Onsi API.
+- [Member](https://docs.onsi.com/docs/schemas/member.md)
+- [Money](https://docs.onsi.com/docs/schemas/money.md)
+- [Pay cycle](https://docs.onsi.com/docs/schemas/pay-cycle.md)
+- [Pay run](https://docs.onsi.com/docs/schemas/pay-run.md)
+- [Tier](https://docs.onsi.com/docs/schemas/tier.md)
+- [Withdrawal](https://docs.onsi.com/docs/schemas/withdrawal.md)
+
+## OpenAPI Specs
+
+- [openapi](https://docs.onsi.com/api-reference/openapi.json)

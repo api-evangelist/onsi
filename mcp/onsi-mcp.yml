@@ -1,0 +1,72 @@
+generated: '2026-07-20'
+method: derived
+status: candidate
+source: openapi/onsi-openapi-original.json
+note: >-
+  No official hosted/remote MCP server was found for Onsi. This is a candidate
+  tool list derived one-to-one from the OpenAPI operations to seed a future
+  MCP server. Not published by the provider.
+server:
+  name: onsi
+  transport: http
+tools:
+  - name: get_members
+    description: Search members (offset paginated via skip/take).
+    source_operation: openapi/onsi-openapi-original.json#getMembers
+  - name: invite_member
+    description: Invite a new member to the platform.
+    source_operation: openapi/onsi-openapi-original.json#inviteMember
+  - name: get_member
+    description: Retrieve a member by id.
+    source_operation: openapi/onsi-openapi-original.json#getMember
+  - name: update_member
+    description: Partially update a member's attributes.
+    source_operation: openapi/onsi-openapi-original.json#updateMember
+  - name: replace_member
+    description: Replace a member's data entirely.
+    source_operation: openapi/onsi-openapi-original.json#replaceMember
+  - name: remove_member
+    description: Offboard (remove) a member.
+    source_operation: openapi/onsi-openapi-original.json#removeMember
+  - name: create_job_from_csv
+    description: Upload a full member list CSV (V1).
+    source_operation: openapi/onsi-openapi-original.json#createJobFromCsv
+  - name: create_job_from_csv_v2
+    description: Upload a full member list CSV (V2).
+    source_operation: openapi/onsi-openapi-original.json#createJobFromCsvV2
+  - name: get_job
+    description: Get the status/result of a batch job.
+    source_operation: openapi/onsi-openapi-original.json#getJob
+  - name: create_job
+    description: Create a batch job with an array of member actions.
+    source_operation: openapi/onsi-openapi-original.json#createJob
+  - name: get_tiers
+    description: List available member tiers.
+    source_operation: openapi/onsi-openapi-original.json#getTiers
+  - name: get_member_balance
+    description: Get a member's available pay balance.
+    source_operation: openapi/onsi-openapi-original.json#getMemberBalance
+  - name: create_withdrawal_intent
+    description: Create an on-demand pay withdrawal intent.
+    source_operation: openapi/onsi-openapi-original.json#createWithdrawalIntent
+  - name: complete_withdrawal
+    description: Complete a withdrawal.
+    source_operation: openapi/onsi-openapi-original.json#completeWithdrawal
+  - name: get_member_withdrawals
+    description: List a member's withdrawals.
+    source_operation: openapi/onsi-openapi-original.json#getMemberWithdrawals
+  - name: upload_pay_run
+    description: Upload a pay run.
+    source_operation: openapi/onsi-openapi-original.json#uploadPayRun
+  - name: get_pay_cycles
+    description: Search pay cycles (latest first).
+    source_operation: openapi/onsi-openapi-original.json#getPayCycles
+  - name: get_pay_cycle
+    description: Get a pay cycle by id.
+    source_operation: openapi/onsi-openapi-original.json#getPayCycle
+  - name: get_pay_cycle_deductions
+    description: Get deductions for a pay cycle.
+    source_operation: openapi/onsi-openapi-original.json#getPayCycleDeductions
+  - name: get_withdrawals
+    description: Search withdrawals across members.
+    source_operation: openapi/onsi-openapi-original.json#getWithdrawals

@@ -1,0 +1,98 @@
+generated: '2026-07-20'
+method: searched
+source: https://docs.onsi.com/api-reference/introduction
+description: >-
+  Cross-cutting request/response conventions that apply across every Onsi
+  (BMO Partner) API operation: authentication, idempotency, pagination, the
+  error envelope, versioning, data format, and rate-limit signaling. These are
+  the runtime-semantics conventions the OpenAPI does not fully express.
+
+base_url: https://api.onsi.com
+sandbox_base_url: https://api.onsi.dev
+api_style: REST over HTTPS, JSON request and response bodies
+
+authentication:
+  scheme: API key in request header
+  header: x-api-key
+  key_provisioning: Contact the Onsi team to request an API key.
+  docs: https://docs.onsi.com/api-reference/introduction
+  detail: authentication/onsi-authentication.yml
+
+data_format:
+  request: application/json
+  response: application/json
+  required_headers:
+    - 'Content-Type: application/json'
+
+idempotency:
+  supported: true
+  mechanism: x-idempotency-key request header
+  applies_to: >-
+    Safe and unsafe HTTP methods; recommended for all mutating requests
+    (POST, PUT, PATCH, DELETE).
+  key_format: Client-generated unique string, typically a UUID.
+  retention: >-
+    Idempotency keys are respected for 7 days after the initial request; after
+    that the key is considered expired and the request is processed as normal.
+  replay_behavior: >-
+    If a request with the same key previously succeeded (2XX), the server does
+    not reprocess it and returns the result of the previous request.
+  docs: https://docs.onsi.com/api-reference/idempotency
+
+pagination:
+  style: offset
+  request_params:
+    skip: number of records to skip (offset)
+    take: number of records to return (page size)
+  applies_to:
+    - GET /v1/members (getMembers)
+    - GET /v1/pay/withdrawals (getWithdrawals)
+    - GET /v1/pay/members/{memberId}/withdrawals (getMemberWithdrawals)
+    - GET /v1/pay/cycles (getPayCycles)
+  docs: https://docs.onsi.com/api-reference/members/search
+
+versioning:
+  scheme: uri-path
+  current: v1
+  notes: >-
+    Version is carried in the URL path (/v1/...). A parallel /v2 exists for the
+    CSV member-list upload (PUT /v2/members/jobs/csv), introduced Feb 2026.
+  docs: https://docs.onsi.com/docs/changelog
+
+error_envelope:
+  format: custom-json
+  shape: >-
+    Errors return a JSON object. Validation-style errors return an `issues`
+    array where each issue has a `code`, `message`, and (for validation) a
+    `path`. Single-error responses return a top-level object with `code` and
+    `message` plus error-specific fields (e.g. memberId, lowerLimit).
+  discriminator: code
+  guidance: >-
+    Branch on the `code` field, never the human-readable `message` (which may
+    change).
+  detail: errors/onsi-error-codes.yml
+  docs: https://docs.onsi.com/api-reference/error-handling
+
+rate_limiting:
+  limit: 100 requests per second per client
+  burst: Short bursts above the limit are tolerated within reasonable bounds.
+  exceeded_status: 429
+  exceeded_code: RateLimitExceeded
+  best_practices:
+    - Implement exponential backoff
+    - Monitor request rates
+    - Use batch endpoints where possible
+  detail: rate-limits/onsi-rate-limits.yml
+  docs: https://docs.onsi.com/api-reference/rate-limits
+
+bulk_operations:
+  batch_jobs: >-
+    Bulk member changes are submitted as jobs (createJob, createJobFromCsv,
+    createJobFromCsvV2) and return a jobId that is polled via getJob.
+  docs: https://docs.onsi.com/docs/member-management/get-started
+
+cross_links:
+  authentication: authentication/onsi-authentication.yml
+  errors: errors/onsi-error-codes.yml
+  lifecycle: lifecycle/onsi-lifecycle.yml
+  rate_limits: rate-limits/onsi-rate-limits.yml

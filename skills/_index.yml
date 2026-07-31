@@ -1,0 +1,21 @@
+generated: '2026-07-20'
+method: generated
+source: openapi/onsi-openapi-original.json + https://docs.onsi.com
+api: openapi/onsi-openapi-original.json
+skills:
+  - file: onsi-manage-members.md
+    name: Manage benefit-program members
+    api: openapi/onsi-openapi-original.json
+    operations: [inviteMember, getMember, getMembers, updateMember, replaceMember, removeMember, getTiers]
+  - file: onsi-sync-member-list-csv.md
+    name: Sync a full member list via CSV job
+    api: openapi/onsi-openapi-original.json
+    operations: [createJobFromCsvV2, createJob, getJob]
+  - file: onsi-embedded-pay-withdrawal.md
+    name: Run an on-demand pay withdrawal
+    api: openapi/onsi-openapi-original.json
+    operations: [getMemberBalance, createWithdrawalIntent, completeWithdrawal, getMemberWithdrawals]
+  - file: onsi-end-of-cycle.md
+    name: Process end-of-cycle pay deductions
+    api: openapi/onsi-openapi-original.json
+    operations: [getPayCycles, getPayCycle, getPayCycleDeductions, uploadPayRun]

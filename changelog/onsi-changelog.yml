@@ -1,0 +1,37 @@
+generated: '2026-07-20'
+method: searched
+source: https://docs.onsi.com/docs/changelog
+scheme: dated-updates
+current_version: v1
+entries:
+  - date: '2026-02'
+    label: Unsetting Bank Details & CSV V2
+    breaking: false
+    highlights:
+      - Partners can now remove a member's existing bank details via the API
+        by setting `accountDetails` to null on Update/Replace/Batch operations.
+      - New CSV upload V2 (PUT /v2/members/jobs/csv) removes existing bank
+        details when bank columns are present but empty (V1 preserves them).
+  - date: '2025-07'
+    label: Pay Cycle APIs
+    breaking: false
+    highlights:
+      - Added APIs to view Pay Cycles and their deductions (getPayCycles,
+        getPayCycle, getPayCycleDeductions).
+  - date: '2024-12'
+    label: Member Replace API
+    breaking: false
+    highlights:
+      - Introduced PUT /v1/members/{id} (replaceMember) to replace member data
+        entirely without diffing current vs desired state.
+  - date: '2024-05'
+    label: Idempotency Support
+    breaking: false
+    highlights:
+      - Added x-idempotency-key support across all mutation endpoints with
+        7-day key retention.
+  - date: '2024-03'
+    label: API Launch
+    breaking: false
+    highlights:
+      - Initial release of the Onsi (BMO Partner) API.

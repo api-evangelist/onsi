@@ -1,0 +1,29 @@
+generated: '2026-07-20'
+method: searched
+source: https://docs.onsi.com/docs/changelog
+versioning:
+  scheme: uri-path
+  current: v1
+  notes: >-
+    Versions are carried in the URL path (/v1/...). A /v2 exists for the CSV
+    member-list upload (PUT /v2/members/jobs/csv), added Feb 2026, running in
+    parallel with /v1.
+  docs: https://docs.onsi.com/docs/changelog
+deprecation:
+  policy_url: null
+  sunset_header: false
+  notes: >-
+    No published deprecation policy or RFC 8594 Sunset/Deprecation header
+    support was found. Superseded endpoints (e.g. CSV V1) run in parallel with
+    their successors rather than being formally sunset.
+sla:
+  url: null
+  uptime_target: null
+status_page:
+  url: null
+  notes: >-
+    No status page was confirmed. status.onsi.com does not resolve; candidate
+    hosted pages (onsi.instatus.com / onsi.statuspage.io) could not be verified
+    as official during this pass.
+changelog: changelog/onsi-changelog.yml
+deprecated_operations: []

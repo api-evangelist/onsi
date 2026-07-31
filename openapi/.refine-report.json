@@ -1,0 +1,16 @@
+{
+  "provider": "onsi",
+  "sources": [
+    "onsi-members-api-openapi.yml",
+    "onsi-pay-api-openapi.yml"
+  ],
+  "outputs": [
+    "onsi-members-api-openapi.yml",
+    "onsi-pay-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
