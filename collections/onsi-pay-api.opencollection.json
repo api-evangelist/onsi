@@ -1,0 +1,261 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "BMO Partner members pay API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "pay",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Show available balance for the member",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.onsi.com/v1/pay/members/:memberId/balance",
+            "params": [
+              {
+                "name": "memberId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for a Member, prefixed with mem_"
+              }
+            ]
+          },
+          "docs": "Show available balance for the member"
+        },
+        {
+          "info": {
+            "name": "Create a withdrawal intent",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.onsi.com/v1/pay/withdrawals/intent",
+            "headers": [
+              {
+                "name": "x-idempotency-key",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a withdrawal intent"
+        },
+        {
+          "info": {
+            "name": "Finalize a withdrawal",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.onsi.com/v1/pay/withdrawals/complete",
+            "headers": [
+              {
+                "name": "x-idempotency-key",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Finalize a withdrawal"
+        },
+        {
+          "info": {
+            "name": "Show withdrawals for the member",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.onsi.com/v1/pay/members/:memberId/withdrawals",
+            "params": [
+              {
+                "name": "memberId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for a Member, prefixed with mem_"
+              },
+              {
+                "name": "skip",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "take",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Show withdrawals for the member"
+        },
+        {
+          "info": {
+            "name": "Upload pay details to make pay available to your members",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.onsi.com/v1/pay/run",
+            "headers": [
+              {
+                "name": "x-idempotency-key",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Upload pay details to make pay available to your members"
+        },
+        {
+          "info": {
+            "name": "Search pay cycles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.onsi.com/v1/pay/cycles",
+            "params": [
+              {
+                "name": "statuses",
+                "value": "",
+                "type": "query",
+                "description": "Filter by status"
+              },
+              {
+                "name": "skip",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "take",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Search pay cycles, returns the latest pay cycle first"
+        },
+        {
+          "info": {
+            "name": "Show pay cycle",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.onsi.com/v1/pay/cycles/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for a PayCycle, prefixed with pc_"
+              }
+            ]
+          },
+          "docs": "Show pay cycle"
+        },
+        {
+          "info": {
+            "name": "Show pay cycle summary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.onsi.com/v1/pay/cycles/:id/deductions",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier for a PayCycle, prefixed with pc_"
+              },
+              {
+                "name": "skip",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "take",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Show pay cycle summary"
+        },
+        {
+          "info": {
+            "name": "Show withdrawals for the pay cycle",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.onsi.com/v1/pay/withdrawals",
+            "params": [
+              {
+                "name": "payCycleId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by pay cycle"
+              },
+              {
+                "name": "memberId",
+                "value": "",
+                "type": "query",
+                "description": "Filter by member"
+              },
+              {
+                "name": "skip",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "take",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "fromDate",
+                "value": "",
+                "type": "query",
+                "description": "Start the results after this date"
+              },
+              {
+                "name": "toDate",
+                "value": "",
+                "type": "query",
+                "description": "End the results before this date"
+              }
+            ]
+          },
+          "docs": "Show withdrawals for the pay cycle"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,1268 @@
+{
+  "item": [
+    {
+      "id": "17fabce2-ff42-4b66-b6cb-af161d5e60ef",
+      "name": "members",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8dff405e-c6e7-4aed-8049-16dafba8a10d",
+          "name": "get Members",
+          "request": {
+            "name": "get Members",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "members"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "memberIds",
+                  "value": "<string>",
+                  "description": "Filter by internal Onsi member IDs"
+                },
+                {
+                  "disabled": false,
+                  "key": "memberIds",
+                  "value": "<string>",
+                  "description": "Filter by internal Onsi member IDs"
+                },
+                {
+                  "disabled": false,
+                  "key": "statuses",
+                  "value": "<string>",
+                  "description": "Filter by member status"
+                },
+                {
+                  "disabled": false,
+                  "key": "statuses",
+                  "value": "<string>",
+                  "description": "Filter by member status"
+                },
+                {
+                  "disabled": false,
+                  "key": "emails",
+                  "value": "<string>",
+                  "description": "Filter by member's email"
+                },
+                {
+                  "disabled": false,
+                  "key": "emails",
+                  "value": "<string>",
+                  "description": "Filter by member's email"
+                },
+                {
+                  "disabled": false,
+                  "key": "workerIds",
+                  "value": "<string>",
+                  "description": "Filter by your worker IDs"
+                },
+                {
+                  "disabled": false,
+                  "key": "workerIds",
+                  "value": "<string>",
+                  "description": "Filter by your worker IDs"
+                },
+                {
+                  "disabled": false,
+                  "key": "skip",
+                  "value": "0",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "take",
+                  "value": "50",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6644551a-bcb0-4457-8aaa-f882ea8e3fc6",
+              "name": "200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "members"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "memberIds",
+                      "value": "mem_<id>"
+                    },
+                    {
+                      "key": "memberIds",
+                      "value": "mem_<id>"
+                    },
+                    {
+                      "key": "statuses",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "statuses",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "emails",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "emails",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "workerIds",
+                      "value": "ID_123"
+                    },
+                    {
+                      "key": "workerIds",
+                      "value": "ID_123"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    },
+                    {
+                      "key": "take",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"members\": [\n    {\n      \"email\": \"Mvf$UOa$i^.yZ?`szDQ=.71.iY`ntm_'N.SL!E}rvIYW.#.H.3d|3n@[80.5.451.44]\",\n      \"memberId\": \"mem_q5sdae3se6eg9m9dcvug\",\n      \"firstName\": \"John\",\n      \"lastName\": \"Smith\",\n      \"phone\": \"string\",\n      \"tier\": \"Gold\",\n      \"workerId\": \"ID_123\",\n      \"status\": \"inactive\",\n      \"accountDetails\": {\n        \"accountHolder\": \"John Smith\",\n        \"sortCode\": \"123456\",\n        \"accountNumber\": \"12345678\"\n      },\n      \"enablePayroll\": true,\n      \"dob\": \"4537-59-61\",\n      \"gender\": \"NonBinary\"\n    },\n    {\n      \"email\": \"k~HEqaEsBo%.i-!j&sj.eu.^.}G+u#.W`-?daR^Qt.i#SU.u.i@Q5A6cY9z.lnO5q2J4PyA.Jyq.m1lq1.Vnl\",\n      \"memberId\": \"mem_q5sdae3se6eg9m9dcvug\",\n      \"firstName\": \"John\",\n      \"lastName\": \"Smith\",\n      \"phone\": \"string\",\n      \"tier\": \"Gold\",\n      \"workerId\": \"ID_123\",\n      \"status\": \"active\",\n      \"accountDetails\": {\n        \"accountHolder\": \"John Smith\",\n        \"sortCode\": \"123456\",\n        \"accountNumber\": \"12345678\"\n      },\n      \"enablePayroll\": true,\n      \"dob\": \"3147-96-06\",\n      \"gender\": \"NonBinary\"\n    }\n  ],\n  \"total\": 1,\n  \"skip\": 0,\n  \"take\": 50\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6333bcc0-1528-42db-9653-8d19365e659a",
+          "name": "invite Member",
+          "request": {
+            "name": "invite Member",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "members"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Unique key to ensure idempotency of the request",
+                "key": "x-idempotency-key",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"<email>\",\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"tier\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"workerId\": \"<string>\",\n  \"accountDetails\": {\n    \"accountHolder\": \"<string>\",\n    \"sortCode\": \"<string>\",\n    \"accountNumber\": \"<string>\"\n  },\n  \"enablePayroll\": \"<boolean>\",\n  \"dob\": \"<string>\",\n  \"gender\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c8d2c755-58a7-4f40-a408-ace6888e7b3f",
+              "name": "A member on the platform.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "members"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Unique key to ensure idempotency of the request",
+                    "key": "x-idempotency-key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"jane-smith@onsi.com\",\n  \"firstName\": \"John\",\n  \"lastName\": \"Smith\",\n  \"tier\": \"Gold\",\n  \"phone\": \"+447123456789\",\n  \"workerId\": \"ID_123\",\n  \"accountDetails\": {\n    \"accountHolder\": \"John Smith\",\n    \"sortCode\": \"123456\",\n    \"accountNumber\": \"12345678\"\n  },\n  \"enablePayroll\": \"<boolean>\",\n  \"dob\": \"1990-01-01\",\n  \"gender\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"email\": \"\\\"$#{z}'$\\\"@teb.44Om.JHzhY.RizrH2V3x0.DMi2t3.w.jEhPGRlS\",\n  \"memberId\": \"mem_q5sdae3se6eg9m9dcvug\",\n  \"firstName\": \"John\",\n  \"lastName\": \"Smith\",\n  \"phone\": \"string\",\n  \"tier\": \"Gold\",\n  \"workerId\": \"ID_123\",\n  \"status\": \"inactive\",\n  \"accountDetails\": {\n    \"accountHolder\": \"John Smith\",\n    \"sortCode\": \"123456\",\n    \"accountNumber\": \"12345678\"\n  },\n  \"enablePayroll\": true,\n  \"dob\": \"3381-80-61\",\n  \"gender\": \"Female\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f2766566-34f4-46c5-9129-bb587dc68553",
+          "name": "get Member",
+          "request": {
+            "name": "get Member",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "members",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The unique identifier for a Member, prefixed with mem_"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2601037d-81b7-4555-ac98-b9152760e1cf",
+              "name": "A member on the platform.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "members",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier for a Member, prefixed with mem_"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"email\": \"\\\"$#{z}'$\\\"@teb.44Om.JHzhY.RizrH2V3x0.DMi2t3.w.jEhPGRlS\",\n  \"memberId\": \"mem_q5sdae3se6eg9m9dcvug\",\n  \"firstName\": \"John\",\n  \"lastName\": \"Smith\",\n  \"phone\": \"string\",\n  \"tier\": \"Gold\",\n  \"workerId\": \"ID_123\",\n  \"status\": \"inactive\",\n  \"accountDetails\": {\n    \"accountHolder\": \"John Smith\",\n    \"sortCode\": \"123456\",\n    \"accountNumber\": \"12345678\"\n  },\n  \"enablePayroll\": true,\n  \"dob\": \"3381-80-61\",\n  \"gender\": \"Female\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ef61309f-f4c4-4ef9-9293-8f72a0653807",
+          "name": "update Member",
+          "request": {
+            "name": "update Member",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "members",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The unique identifier for a Member, prefixed with mem_"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Unique key to ensure idempotency of the request",
+                "key": "x-idempotency-key",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"<email>\",\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"workerId\": \"<string>\",\n  \"tier\": \"<string>\",\n  \"accountDetails\": {\n    \"accountHolder\": \"<string>\",\n    \"sortCode\": \"<string>\",\n    \"accountNumber\": \"<string>\"\n  },\n  \"enablePayroll\": \"<boolean>\",\n  \"dob\": \"<string>\",\n  \"gender\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "dd1cc97e-fa21-403b-a884-e894b1c2d048",
+              "name": "A member on the platform.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "members",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier for a Member, prefixed with mem_"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Unique key to ensure idempotency of the request",
+                    "key": "x-idempotency-key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<email>\",\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"workerId\": \"ID_123\",\n  \"tier\": \"<string>\",\n  \"accountDetails\": {\n    \"accountHolder\": \"John Smith\",\n    \"sortCode\": \"123456\",\n    \"accountNumber\": \"12345678\"\n  },\n  \"enablePayroll\": \"<boolean>\",\n  \"dob\": \"1990-01-01\",\n  \"gender\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"email\": \"\\\"$#{z}'$\\\"@teb.44Om.JHzhY.RizrH2V3x0.DMi2t3.w.jEhPGRlS\",\n  \"memberId\": \"mem_q5sdae3se6eg9m9dcvug\",\n  \"firstName\": \"John\",\n  \"lastName\": \"Smith\",\n  \"phone\": \"string\",\n  \"tier\": \"Gold\",\n  \"workerId\": \"ID_123\",\n  \"status\": \"inactive\",\n  \"accountDetails\": {\n    \"accountHolder\": \"John Smith\",\n    \"sortCode\": \"123456\",\n    \"accountNumber\": \"12345678\"\n  },\n  \"enablePayroll\": true,\n  \"dob\": \"3381-80-61\",\n  \"gender\": \"Female\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7a81eb8f-7c72-4b84-8cfb-a39c44b301af",
+          "name": "replace Member",
+          "request": {
+            "name": "replace Member",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "members",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The unique identifier for a Member, prefixed with mem_"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Unique key to ensure idempotency of the request",
+                "key": "x-idempotency-key",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"<email>\",\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"tier\": \"<string>\",\n  \"phone\": \"<string>\",\n  \"workerId\": \"<string>\",\n  \"accountDetails\": {\n    \"accountHolder\": \"<string>\",\n    \"sortCode\": \"<string>\",\n    \"accountNumber\": \"<string>\"\n  },\n  \"enablePayroll\": \"<boolean>\",\n  \"dob\": \"<string>\",\n  \"gender\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9c018a77-c2b6-4e0e-806f-72a9cfbb44fc",
+              "name": "A member on the platform.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "members",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier for a Member, prefixed with mem_"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Unique key to ensure idempotency of the request",
+                    "key": "x-idempotency-key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"jane-smith@onsi.com\",\n  \"firstName\": \"John\",\n  \"lastName\": \"Smith\",\n  \"tier\": \"Gold\",\n  \"phone\": \"+447123456789\",\n  \"workerId\": \"ID_123\",\n  \"accountDetails\": {\n    \"accountHolder\": \"John Smith\",\n    \"sortCode\": \"123456\",\n    \"accountNumber\": \"12345678\"\n  },\n  \"enablePayroll\": \"<boolean>\",\n  \"dob\": \"1990-01-01\",\n  \"gender\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"email\": \"\\\"$#{z}'$\\\"@teb.44Om.JHzhY.RizrH2V3x0.DMi2t3.w.jEhPGRlS\",\n  \"memberId\": \"mem_q5sdae3se6eg9m9dcvug\",\n  \"firstName\": \"John\",\n  \"lastName\": \"Smith\",\n  \"phone\": \"string\",\n  \"tier\": \"Gold\",\n  \"workerId\": \"ID_123\",\n  \"status\": \"inactive\",\n  \"accountDetails\": {\n    \"accountHolder\": \"John Smith\",\n    \"sortCode\": \"123456\",\n    \"accountNumber\": \"12345678\"\n  },\n  \"enablePayroll\": true,\n  \"dob\": \"3381-80-61\",\n  \"gender\": \"Female\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a5bb5405-703d-4d74-b8c2-fc43156e8a60",
+          "name": "remove Member",
+          "request": {
+            "name": "remove Member",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "members",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The unique identifier for a Member, prefixed with mem_"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Unique key to ensure idempotency of the request",
+                "key": "x-idempotency-key",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9d0fe6d7-fa4f-44c4-bb48-d48131db74c0",
+              "name": "200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "members",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier for a Member, prefixed with mem_"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Unique key to ensure idempotency of the request",
+                    "key": "x-idempotency-key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"OK\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7d026f6f-2233-48ec-887f-c7a09953d77e",
+          "name": "create Job From Csv",
+          "request": {
+            "name": "create Job From Csv",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "members",
+                "jobs",
+                "csv"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Unique key to ensure idempotency of the request",
+                "key": "x-idempotency-key",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "525b386e-3016-4300-87ca-9b6c8c44f783",
+              "name": "202",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "members",
+                    "jobs",
+                    "csv"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Unique key to ensure idempotency of the request",
+                    "key": "x-idempotency-key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"jobId\": \"maj_cltd2zp7100096tmbamb9c46o\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8cb0ca6d-4e4e-4045-bc72-eebcc0076322",
+          "name": "create Job From Csv V2",
+          "request": {
+            "name": "create Job From Csv V2",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "members",
+                "jobs",
+                "csv"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Unique key to ensure idempotency of the request",
+                "key": "x-idempotency-key",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "09486735-5841-4a67-bdd5-ed56ac0d9124",
+              "name": "202",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "members",
+                    "jobs",
+                    "csv"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Unique key to ensure idempotency of the request",
+                    "key": "x-idempotency-key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"jobId\": \"maj_cltd2zp7100096tmbamb9c46o\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0242d1a4-607a-4553-8b23-dd0aa21d9b06",
+          "name": "get Job",
+          "request": {
+            "name": "get Job",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "members",
+                "jobs",
+                ":jobId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "jobId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "809bfcc8-4c53-42ea-b5e3-267c03f34c69",
+              "name": "200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "members",
+                    "jobs",
+                    ":jobId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"maj_cltd2zp7100096tmbamb9c46o\",\n  \"progress\": {\n    \"type\": \"Processing\",\n    \"totalActions\": 100,\n    \"totalComplete\": 85,\n    \"totalProcessing\": 15\n  },\n  \"createdAt\": \"2024-01-01\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ad44a293-d9c4-4c07-bf3f-26e632ee764f",
+          "name": "create Job",
+          "request": {
+            "name": "create Job",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "members",
+                "jobs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Unique key to ensure idempotency of the request",
+                "key": "x-idempotency-key",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"actions\": [\n    {\n      \"email\": \"<email>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"tier\": \"<string>\",\n      \"type\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"workerId\": \"<string>\",\n      \"accountDetails\": {\n        \"accountHolder\": \"<string>\",\n        \"sortCode\": \"<string>\",\n        \"accountNumber\": \"<string>\"\n      },\n      \"enablePayroll\": \"<boolean>\",\n      \"dob\": \"<string>\",\n      \"gender\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "46c7908d-9762-42dd-b64f-7893125c29cb",
+              "name": "202",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "members",
+                    "jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Unique key to ensure idempotency of the request",
+                    "key": "x-idempotency-key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"actions\": [\n    {\n      \"email\": \"jane-smith@onsi.com\",\n      \"firstName\": \"John\",\n      \"lastName\": \"Smith\",\n      \"tier\": \"Gold\",\n      \"type\": \"<string>\",\n      \"phone\": \"+447123456789\",\n      \"workerId\": \"ID_123\",\n      \"accountDetails\": {\n        \"accountHolder\": \"John Smith\",\n        \"sortCode\": \"123456\",\n        \"accountNumber\": \"12345678\"\n      },\n      \"enablePayroll\": \"<boolean>\",\n      \"dob\": \"1990-01-01\",\n      \"gender\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"jobId\": \"maj_cltd2zp7100096tmbamb9c46o\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "88bb76cf-62b5-45bc-8304-88cef6ee82b9",
+          "name": "get Tiers",
+          "request": {
+            "name": "get Tiers",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "tiers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "374dc97c-f405-4528-84ca-391baf9a18c8",
+              "name": "200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "tiers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"Gold\"\n  },\n  {\n    \"name\": \"Gold\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.onsi.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "cb1ca0d6-8fca-4060-b604-4e3caeba3889",
+    "name": "BMO Partner members API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

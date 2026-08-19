@@ -1,0 +1,1092 @@
+{
+  "item": [
+    {
+      "id": "d456ceb2-7aa8-4c7c-9f94-f874376ec296",
+      "name": "pay",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "718d0bfd-89b6-4b59-afb4-1465aa427f6c",
+          "name": "Show available balance for the member",
+          "request": {
+            "name": "Show available balance for the member",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "pay",
+                "members",
+                ":memberId",
+                "balance"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "memberId",
+                  "description": "(Required) The unique identifier for a Member, prefixed with mem_"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f7c26b87-9358-4bfa-ae17-fbd7a738e529",
+              "name": "200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "pay",
+                    "members",
+                    ":memberId",
+                    "balance"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "memberId",
+                      "description": "(Required) The unique identifier for a Member, prefixed with mem_"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"available\": {\n    \"currency\": \"GBP\",\n    \"amount\": 12500\n  },\n  \"lowerLimit\": {\n    \"currency\": \"GBP\",\n    \"amount\": 1000\n  },\n  \"upperLimit\": {\n    \"currency\": \"GBP\",\n    \"amount\": 20000\n  },\n  \"payCycle\": {\n    \"id\": \"pc_<id>\",\n    \"startDate\": \"2024-01-01\",\n    \"endDate\": \"2024-01-15\",\n    \"lastPayDate\": \"string\"\n  },\n  \"isTemporarilyUnavailable\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5e95c1ca-af61-4516-acf7-38e0ff311800",
+          "name": "Create a withdrawal intent",
+          "request": {
+            "name": "Create a withdrawal intent",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "pay",
+                "withdrawals",
+                "intent"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Unique key to ensure idempotency of the request",
+                "key": "x-idempotency-key",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"memberId\": \"<string>\",\n  \"amount\": {\n    \"amount\": \"<integer>\",\n    \"currency\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "dacb1522-baf8-4a01-b893-170ae9188ffc",
+              "name": "201",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "pay",
+                    "withdrawals",
+                    "intent"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Unique key to ensure idempotency of the request",
+                    "key": "x-idempotency-key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"memberId\": \"mem_<id>\",\n  \"amount\": {\n    \"amount\": 1050,\n    \"currency\": \"GBP\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"withdrawalIntentId\": \"wi_<id>\",\n  \"netAmount\": {\n    \"currency\": \"GBP\",\n    \"amount\": 950\n  },\n  \"fee\": {\n    \"currency\": \"GBP\",\n    \"amount\": 50\n  },\n  \"accountDetails\": {\n    \"accountHolder\": \"John Smith\",\n    \"sortCode\": \"123456\",\n    \"accountNumber\": \"12345678\"\n  },\n  \"bankAccount\": {\n    \"lastFour\": \"5678\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6c69628a-e963-4aaf-b124-c2bbba41c5c3",
+          "name": "Finalize a withdrawal",
+          "request": {
+            "name": "Finalize a withdrawal",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "pay",
+                "withdrawals",
+                "complete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Unique key to ensure idempotency of the request",
+                "key": "x-idempotency-key",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"withdrawalIntentId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "94b28ef3-81c8-4168-9b3c-9e5271e336ba",
+              "name": "201",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "pay",
+                    "withdrawals",
+                    "complete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Unique key to ensure idempotency of the request",
+                    "key": "x-idempotency-key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"withdrawalIntentId\": \"wi_<id>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "10abcd19-00e0-4fc4-bc66-01c91c7199ae",
+          "name": "Show withdrawals for the member",
+          "request": {
+            "name": "Show withdrawals for the member",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "pay",
+                "members",
+                ":memberId",
+                "withdrawals"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "skip",
+                  "value": "0",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "take",
+                  "value": "50",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "memberId",
+                  "description": "(Required) The unique identifier for a Member, prefixed with mem_"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "930e4ba4-2963-4fb4-aaa1-3e8f4182b37a",
+              "name": "200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "pay",
+                    "members",
+                    ":memberId",
+                    "withdrawals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    },
+                    {
+                      "key": "take",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "memberId",
+                      "description": "(Required) The unique identifier for a Member, prefixed with mem_"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"withdrawals\": [\n    {\n      \"amount\": {\n        \"amount\": 1050,\n        \"currency\": \"GBP\"\n      },\n      \"fee\": {\n        \"amount\": 1050,\n        \"currency\": \"GBP\"\n      },\n      \"payCycleId\": \"pc_<id>\",\n      \"createdAt\": \"4748-10-30T21:54:45Z\"\n    },\n    {\n      \"amount\": {\n        \"amount\": 1050,\n        \"currency\": \"GBP\"\n      },\n      \"fee\": {\n        \"amount\": 1050,\n        \"currency\": \"GBP\"\n      },\n      \"payCycleId\": \"pc_<id>\",\n      \"createdAt\": \"0971-02-14T23:12:17Z\"\n    }\n  ],\n  \"skip\": 0,\n  \"take\": 50,\n  \"total\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ab436f22-6e0c-4d2f-90d0-4105a891cbf0",
+          "name": "Upload pay details to make pay available to your members",
+          "request": {
+            "name": "Upload pay details to make pay available to your members",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "pay",
+                "run"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Unique key to ensure idempotency of the request",
+                "key": "x-idempotency-key",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"payDetails\": [\n    {\n      \"memberId\": \"<string>\",\n      \"money\": {\n        \"amount\": \"<integer>\",\n        \"currency\": \"<string>\"\n      }\n    },\n    {\n      \"memberId\": \"<string>\",\n      \"money\": {\n        \"amount\": \"<integer>\",\n        \"currency\": \"<string>\"\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d8fe814a-aff8-409f-ba72-f114e9a226b5",
+              "name": "A pay run is a list of members and the amount of money they are able to withdraw",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "pay",
+                    "run"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Unique key to ensure idempotency of the request",
+                    "key": "x-idempotency-key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payDetails\": [\n    {\n      \"memberId\": \"mem_<id>\",\n      \"money\": {\n        \"amount\": 1050,\n        \"currency\": \"GBP\"\n      }\n    },\n    {\n      \"memberId\": \"mem_<id>\",\n      \"money\": {\n        \"amount\": 1050,\n        \"currency\": \"GBP\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"payCycleId\": \"pc_<id>\",\n  \"status\": \"Draft\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5be5cd74-99b8-472f-8cb9-b45127cf9060",
+          "name": "Search pay cycles",
+          "request": {
+            "name": "Search pay cycles",
+            "description": {
+              "content": "Search pay cycles, returns the latest pay cycle first",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "pay",
+                "cycles"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "statuses",
+                  "value": "<string>",
+                  "description": "Filter by status"
+                },
+                {
+                  "disabled": false,
+                  "key": "statuses",
+                  "value": "<string>",
+                  "description": "Filter by status"
+                },
+                {
+                  "disabled": false,
+                  "key": "skip",
+                  "value": "0",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "take",
+                  "value": "50",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "21f2de18-485a-43de-8764-4da6271621b1",
+              "name": "200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "pay",
+                    "cycles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "statuses",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "statuses",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    },
+                    {
+                      "key": "take",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"payCycles\": [\n    {\n      \"id\": \"pc_<id>\",\n      \"startDate\": \"2024-01-01\",\n      \"endDate\": \"2024-01-15\",\n      \"status\": \"Closed\"\n    },\n    {\n      \"id\": \"pc_<id>\",\n      \"startDate\": \"2024-01-01\",\n      \"endDate\": \"2024-01-15\",\n      \"status\": \"Open\"\n    }\n  ],\n  \"total\": 1,\n  \"skip\": 0,\n  \"take\": 50\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "88aed7da-6f84-4c1f-b53b-7fbf86081a53",
+          "name": "Show pay cycle",
+          "request": {
+            "name": "Show pay cycle",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "pay",
+                "cycles",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The unique identifier for a PayCycle, prefixed with pc_"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0ceb1e61-6f88-4d63-b30f-8e66f8e08d0b",
+              "name": "A pay cycle is a period of time pay is made available for members to withdraw",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "pay",
+                    "cycles",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier for a PayCycle, prefixed with pc_"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"pc_<id>\",\n  \"startDate\": \"2024-01-01\",\n  \"endDate\": \"2024-01-15\",\n  \"status\": \"Closed\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "979affc2-a59a-4e34-b114-bcaeda2c663a",
+          "name": "Show pay cycle summary",
+          "request": {
+            "name": "Show pay cycle summary",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "pay",
+                "cycles",
+                ":id",
+                "deductions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "skip",
+                  "value": "0",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "take",
+                  "value": "50",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The unique identifier for a PayCycle, prefixed with pc_"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "124f1ade-69ed-47ce-80ce-16b8ef2e25ef",
+              "name": "200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "pay",
+                    "cycles",
+                    ":id",
+                    "deductions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    },
+                    {
+                      "key": "take",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier for a PayCycle, prefixed with pc_"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"deductions\": [\n    {\n      \"memberId\": \"mem_<id>\",\n      \"total\": {\n        \"currency\": \"GBP\",\n        \"amount\": 1000\n      }\n    },\n    {\n      \"memberId\": \"mem_<id>\",\n      \"total\": {\n        \"currency\": \"GBP\",\n        \"amount\": 1000\n      }\n    }\n  ],\n  \"total\": 1,\n  \"skip\": 0,\n  \"take\": 50\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "410a4115-74e3-4ca5-b608-1aa0d012de84",
+          "name": "Show withdrawals for the pay cycle",
+          "request": {
+            "name": "Show withdrawals for the pay cycle",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "pay",
+                "withdrawals"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "payCycleId",
+                  "value": "<string>",
+                  "description": "Filter by pay cycle"
+                },
+                {
+                  "disabled": false,
+                  "key": "memberId",
+                  "value": "<string>",
+                  "description": "Filter by member"
+                },
+                {
+                  "disabled": false,
+                  "key": "skip",
+                  "value": "0",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "take",
+                  "value": "50",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "fromDate",
+                  "value": "<dateTime>",
+                  "description": "Start the results after this date"
+                },
+                {
+                  "disabled": false,
+                  "key": "toDate",
+                  "value": "<dateTime>",
+                  "description": "End the results before this date"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "aaae4528-c6aa-42fa-9a9c-f592a180189a",
+              "name": "200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "pay",
+                    "withdrawals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "payCycleId",
+                      "value": "pc_<id>"
+                    },
+                    {
+                      "key": "memberId",
+                      "value": "mem_<id>"
+                    },
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    },
+                    {
+                      "key": "take",
+                      "value": "50"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"withdrawals\": [\n    {\n      \"id\": \"w_<id>\",\n      \"netAmount\": {\n        \"amount\": 1050,\n        \"currency\": \"GBP\"\n      },\n      \"fee\": {\n        \"amount\": 1050,\n        \"currency\": \"GBP\"\n      },\n      \"payCycleId\": \"pc_<id>\",\n      \"memberId\": \"mem_<id>\",\n      \"createdAt\": \"1278-02-22T06:33Z\"\n    },\n    {\n      \"id\": \"w_<id>\",\n      \"netAmount\": {\n        \"amount\": 1050,\n        \"currency\": \"GBP\"\n      },\n      \"fee\": {\n        \"amount\": 1050,\n        \"currency\": \"GBP\"\n      },\n      \"payCycleId\": \"pc_<id>\",\n      \"memberId\": \"mem_<id>\",\n      \"createdAt\": \"1580-07-31T08:42Z\"\n    }\n  ],\n  \"hasMore\": false,\n  \"skip\": 0,\n  \"take\": 50\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.onsi.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a56fac01-e289-4791-b461-c663086715e1",
+    "name": "BMO Partner members pay API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}
