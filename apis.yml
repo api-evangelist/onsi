@@ -52,6 +52,8 @@ apis:
   humanURL: https://docs.onsi.com
   baseURL: https://api.onsi.com
   tags:
+  - Members
+  tags_raw:
   - members
   properties:
   - type: OpenAPI
@@ -66,6 +68,8 @@ apis:
   humanURL: https://docs.onsi.com
   baseURL: https://api.onsi.com
   tags:
+  - Pay
+  tags_raw:
   - pay
   properties:
   - type: OpenAPI
