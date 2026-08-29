@@ -1,0 +1,26 @@
+slug: onsi
+provider: Onsi
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Insurance
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: pay
+  spec_file: onsi-pay-api-openapi.yml
+  capability_id: BC-300.70
+  capability_id_l1: BC-300
+  capability_name: HR Operations Management
+  confidence: 0.75
+  evidence: 'POST /v1/pay/run  uploadPayRun  Upload pay details to make pay available to your members;
+    GET /v1/pay/cycles/{id}/deductions; schemas: PayRun, PayCycle, Withdrawal, AvailableBalance'
+  reason: Pay runs, pay cycles, deductions, earned-balance and withdrawal operations constitute on-demand
+    pay / payroll administration, which sits in HR Operations Management (payroll administration). Not
+    an insurance capability despite the vendor being an intermediary.

@@ -96,6 +96,9 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: CapabilityMap
+  url: capabilities/onsi-capability-edges.yml
+  name: Onsi Business Capability Map
 - type: Overlay
   url: overlays/onsi-overlay.yaml
 - type: Website
