@@ -80,7 +80,7 @@ apis:
   humanURL: https://docs.onsi.com
   baseURL: https://api.onsi.com
   tags:
-  - Pay
+  - pay
   tags_raw:
   - pay
   properties:
