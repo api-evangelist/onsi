@@ -1,8 +1,7 @@
 {
   "provider": "onsi",
   "sources": [
-    "onsi-members-api-openapi.yml",
-    "onsi-pay-api-openapi.yml"
+    "_original/onsi-openapi-original.json"
   ],
   "outputs": [
     "onsi-members-api-openapi.yml",
@@ -11,6 +10,15 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "onsi-openapi-original.json: upgraded openapi 3.0.2 -> OpenAPI 3.2.0",
+    "onsi-openapi-original.json: declared missing tag: members",
+    "onsi-openapi-original.json: declared missing tag: pay",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "onsi-members-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "onsi-pay-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

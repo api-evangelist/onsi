@@ -1,6 +1,6 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  title: BMO Partner members pay API
+  title: BMO Partner Pay API
   version: v1
 servers:
 - url: https://api.onsi.com
@@ -10,13 +10,13 @@ servers:
 security:
 - apiKey: []
 tags:
-- name: pay
+- name: Pay
 paths:
   /v1/pay/members/{memberId}/balance:
     get:
       summary: Show available balance for the member
       tags:
-      - pay
+      - Pay
       parameters:
       - name: memberId
         in: path
@@ -61,8 +61,9 @@ paths:
                         example: '2024-01-07T11:55:39.676Z'
                         description: The last time pay was made available for this member in this cycle
                         anyOf:
-                        - type: string
-                          nullable: true
+                        - type:
+                          - string
+                          - 'null'
                     required:
                     - id
                     - startDate
@@ -83,7 +84,7 @@ paths:
     post:
       summary: Create a withdrawal intent
       tags:
-      - pay
+      - Pay
       parameters:
       - name: x-idempotency-key
         in: header
@@ -346,7 +347,7 @@ paths:
     post:
       summary: Finalize a withdrawal
       tags:
-      - pay
+      - Pay
       parameters:
       - name: x-idempotency-key
         in: header
@@ -386,7 +387,7 @@ paths:
       summary: Show withdrawals for the member
       deprecated: true
       tags:
-      - pay
+      - Pay
       parameters:
       - name: memberId
         in: path
@@ -458,7 +459,7 @@ paths:
     post:
       summary: Upload pay details to make pay available to your members
       tags:
-      - pay
+      - Pay
       parameters:
       - name: x-idempotency-key
         in: header
@@ -701,7 +702,7 @@ paths:
       description: Search pay cycles, returns the latest pay cycle first
       summary: Search pay cycles
       tags:
-      - pay
+      - Pay
       parameters:
       - name: statuses
         in: query
@@ -757,7 +758,7 @@ paths:
     get:
       summary: Show pay cycle
       tags:
-      - pay
+      - Pay
       parameters:
       - name: id
         in: path
@@ -778,7 +779,7 @@ paths:
     get:
       summary: Show pay cycle summary
       tags:
-      - pay
+      - Pay
       parameters:
       - name: id
         in: path
@@ -842,7 +843,7 @@ paths:
     get:
       summary: Show withdrawals for the pay cycle
       tags:
-      - pay
+      - Pay
       parameters:
       - name: payCycleId
         in: query
@@ -913,17 +914,18 @@ paths:
                 additionalProperties: false
 components:
   schemas:
-    WithdrawalNetAmount:
-      title: WithdrawalNetAmount
-      description: The amount of money the member received after fees
+    UpperLimit:
+      title: UpperLimit
+      description: The upper limit, the member cannot have more than this amount
+      example:
+        currency: GBP
+        amount: 20000
       type: object
       properties:
         amount:
           example: 1050
           description: Price in lowest denomination of currency (e.g. cents)
           type: integer
-          minimum: -9007199254740991
-          maximum: 9007199254740991
         currency:
           example: GBP
           description: ISO 4217 currency code
@@ -1113,26 +1115,6 @@ components:
       - currency
       additionalProperties: false
       x-instanceOf: Money
-    PayRunAvailable:
-      title: PayRunAvailable
-      description: A pay run that is available for withdrawal
-      type: object
-      properties:
-        id:
-          type: string
-        payCycleId:
-          example: pc_<id>
-          description: The unique identifier for a PayCycle, prefixed with pc_
-          type: string
-        status:
-          type: string
-          enum:
-          - Available
-      required:
-      - id
-      - payCycleId
-      - status
-      additionalProperties: false
     PayCycle:
       title: PayCycle
       description: A pay cycle is a period of time pay is made available for members to withdraw
@@ -1163,32 +1145,223 @@ components:
       - endDate
       - status
       additionalProperties: false
-    BankAccountUK:
-      title: BankAccountUK
+    PayRun:
+      title: PayRun
+      description: A pay run is a list of members and the amount of money they are able to withdraw
       example:
-        accountHolder: John Smith
-        sortCode: '123456'
-        accountNumber: '12345678'
-      description: A UK bank account
-      type: object
-      properties:
-        accountHolder:
-          type: string
-        sortCode:
-          type: string
-        accountNumber:
-          type: string
-      required:
-      - accountHolder
-      - sortCode
-      - accountNumber
-      additionalProperties: false
-    Total:
-      title: Total
-      description: The amount deducted for the member, inclusive of fees
+        id: pr_<id>
+        payCycleId: pc_<id>
+        status: Scheduled
+        scheduledFor: '2024-01-01T00:00:00Z'
+      anyOf:
+      - $ref: '#/components/schemas/PayRunDraft'
+      - $ref: '#/components/schemas/PayRunReverted'
+      - $ref: '#/components/schemas/PayRunAvailable'
+      - $ref: '#/components/schemas/PayRunScheduled'
+    AvailableBalance:
+      title: AvailableBalance
+      description: The balance for the member
       example:
         currency: GBP
-        amount: 1000
+        amount: 12500
+      type: object
+      properties:
+        amount:
+          example: 1050
+          description: Price in lowest denomination of currency (e.g. cents)
+          type: integer
+        currency:
+          example: GBP
+          description: ISO 4217 currency code
+          type: string
+          enum:
+          - AED
+          - AFN
+          - ALL
+          - AMD
+          - ANG
+          - AOA
+          - ARS
+          - AUD
+          - AWG
+          - AZN
+          - BAM
+          - BBD
+          - BDT
+          - BGN
+          - BHD
+          - BIF
+          - BMD
+          - BND
+          - BOB
+          - BOV
+          - BRL
+          - BSD
+          - BTN
+          - BWP
+          - BYN
+          - BZD
+          - CAD
+          - CDF
+          - CHE
+          - CHF
+          - CHW
+          - CLF
+          - CLP
+          - CNY
+          - COP
+          - COU
+          - CRC
+          - CUC
+          - CUP
+          - CVE
+          - CZK
+          - DJF
+          - DKK
+          - DOP
+          - DZD
+          - EGP
+          - ERN
+          - ETB
+          - EUR
+          - FJD
+          - FKP
+          - GBP
+          - GEL
+          - GHS
+          - GIP
+          - GMD
+          - GNF
+          - GTQ
+          - GYD
+          - HKD
+          - HNL
+          - HRK
+          - HTG
+          - HUF
+          - IDR
+          - ILS
+          - INR
+          - IQD
+          - IRR
+          - ISK
+          - JMD
+          - JOD
+          - JPY
+          - KES
+          - KGS
+          - KHR
+          - KMF
+          - KPW
+          - KRW
+          - KWD
+          - KYD
+          - KZT
+          - LAK
+          - LBP
+          - LKR
+          - LRD
+          - LSL
+          - LYD
+          - MAD
+          - MDL
+          - MGA
+          - MKD
+          - MMK
+          - MNT
+          - MOP
+          - MRU
+          - MUR
+          - MVR
+          - MWK
+          - MXN
+          - MXV
+          - MYR
+          - MZN
+          - NAD
+          - NGN
+          - NIO
+          - NOK
+          - NPR
+          - NZD
+          - OMR
+          - PAB
+          - PEN
+          - PGK
+          - PHP
+          - PKR
+          - PLN
+          - PYG
+          - QAR
+          - RON
+          - RSD
+          - RUB
+          - RWF
+          - SAR
+          - SBD
+          - SCR
+          - SDG
+          - SEK
+          - SGD
+          - SHP
+          - SLL
+          - SOS
+          - SRD
+          - SSP
+          - STN
+          - SVC
+          - SYP
+          - SZL
+          - THB
+          - TJS
+          - TMT
+          - TND
+          - TOP
+          - TRY
+          - TTD
+          - TWD
+          - TZS
+          - UAH
+          - UGX
+          - USD
+          - USN
+          - UYI
+          - UYU
+          - UYW
+          - UZS
+          - VES
+          - VND
+          - VUV
+          - WST
+          - XAF
+          - XAG
+          - XAU
+          - XBA
+          - XBB
+          - XBC
+          - XBD
+          - XCD
+          - XDR
+          - XOF
+          - XPD
+          - XPF
+          - XPT
+          - XSU
+          - XTS
+          - XUA
+          - XXX
+          - YER
+          - ZAR
+          - ZMW
+          - ZWL
+      required:
+      - amount
+      - currency
+      additionalProperties: false
+      x-instanceOf: Money
+    WithdrawalFee:
+      title: WithdrawalFee
+      description: The fee charged for the withdrawal
       type: object
       properties:
         amount:
@@ -1197,408 +1370,6 @@ components:
           type: integer
           minimum: -9007199254740991
           maximum: 9007199254740991
-        currency:
-          example: GBP
-          description: ISO 4217 currency code
-          type: string
-          enum:
-          - AED
-          - AFN
-          - ALL
-          - AMD
-          - ANG
-          - AOA
-          - ARS
-          - AUD
-          - AWG
-          - AZN
-          - BAM
-          - BBD
-          - BDT
-          - BGN
-          - BHD
-          - BIF
-          - BMD
-          - BND
-          - BOB
-          - BOV
-          - BRL
-          - BSD
-          - BTN
-          - BWP
-          - BYN
-          - BZD
-          - CAD
-          - CDF
-          - CHE
-          - CHF
-          - CHW
-          - CLF
-          - CLP
-          - CNY
-          - COP
-          - COU
-          - CRC
-          - CUC
-          - CUP
-          - CVE
-          - CZK
-          - DJF
-          - DKK
-          - DOP
-          - DZD
-          - EGP
-          - ERN
-          - ETB
-          - EUR
-          - FJD
-          - FKP
-          - GBP
-          - GEL
-          - GHS
-          - GIP
-          - GMD
-          - GNF
-          - GTQ
-          - GYD
-          - HKD
-          - HNL
-          - HRK
-          - HTG
-          - HUF
-          - IDR
-          - ILS
-          - INR
-          - IQD
-          - IRR
-          - ISK
-          - JMD
-          - JOD
-          - JPY
-          - KES
-          - KGS
-          - KHR
-          - KMF
-          - KPW
-          - KRW
-          - KWD
-          - KYD
-          - KZT
-          - LAK
-          - LBP
-          - LKR
-          - LRD
-          - LSL
-          - LYD
-          - MAD
-          - MDL
-          - MGA
-          - MKD
-          - MMK
-          - MNT
-          - MOP
-          - MRU
-          - MUR
-          - MVR
-          - MWK
-          - MXN
-          - MXV
-          - MYR
-          - MZN
-          - NAD
-          - NGN
-          - NIO
-          - NOK
-          - NPR
-          - NZD
-          - OMR
-          - PAB
-          - PEN
-          - PGK
-          - PHP
-          - PKR
-          - PLN
-          - PYG
-          - QAR
-          - RON
-          - RSD
-          - RUB
-          - RWF
-          - SAR
-          - SBD
-          - SCR
-          - SDG
-          - SEK
-          - SGD
-          - SHP
-          - SLL
-          - SOS
-          - SRD
-          - SSP
-          - STN
-          - SVC
-          - SYP
-          - SZL
-          - THB
-          - TJS
-          - TMT
-          - TND
-          - TOP
-          - TRY
-          - TTD
-          - TWD
-          - TZS
-          - UAH
-          - UGX
-          - USD
-          - USN
-          - UYI
-          - UYU
-          - UYW
-          - UZS
-          - VES
-          - VND
-          - VUV
-          - WST
-          - XAF
-          - XAG
-          - XAU
-          - XBA
-          - XBB
-          - XBC
-          - XBD
-          - XCD
-          - XDR
-          - XOF
-          - XPD
-          - XPF
-          - XPT
-          - XSU
-          - XTS
-          - XUA
-          - XXX
-          - YER
-          - ZAR
-          - ZMW
-          - ZWL
-      required:
-      - amount
-      - currency
-      additionalProperties: false
-      x-instanceOf: Money
-    Fee:
-      title: Fee
-      description: A monetary value with currency.
-      example:
-        currency: GBP
-        amount: 50
-      type: object
-      properties:
-        amount:
-          example: 1050
-          description: Price in lowest denomination of currency (e.g. cents)
-          type: integer
-        currency:
-          example: GBP
-          description: ISO 4217 currency code
-          type: string
-          enum:
-          - AED
-          - AFN
-          - ALL
-          - AMD
-          - ANG
-          - AOA
-          - ARS
-          - AUD
-          - AWG
-          - AZN
-          - BAM
-          - BBD
-          - BDT
-          - BGN
-          - BHD
-          - BIF
-          - BMD
-          - BND
-          - BOB
-          - BOV
-          - BRL
-          - BSD
-          - BTN
-          - BWP
-          - BYN
-          - BZD
-          - CAD
-          - CDF
-          - CHE
-          - CHF
-          - CHW
-          - CLF
-          - CLP
-          - CNY
-          - COP
-          - COU
-          - CRC
-          - CUC
-          - CUP
-          - CVE
-          - CZK
-          - DJF
-          - DKK
-          - DOP
-          - DZD
-          - EGP
-          - ERN
-          - ETB
-          - EUR
-          - FJD
-          - FKP
-          - GBP
-          - GEL
-          - GHS
-          - GIP
-          - GMD
-          - GNF
-          - GTQ
-          - GYD
-          - HKD
-          - HNL
-          - HRK
-          - HTG
-          - HUF
-          - IDR
-          - ILS
-          - INR
-          - IQD
-          - IRR
-          - ISK
-          - JMD
-          - JOD
-          - JPY
-          - KES
-          - KGS
-          - KHR
-          - KMF
-          - KPW
-          - KRW
-          - KWD
-          - KYD
-          - KZT
-          - LAK
-          - LBP
-          - LKR
-          - LRD
-          - LSL
-          - LYD
-          - MAD
-          - MDL
-          - MGA
-          - MKD
-          - MMK
-          - MNT
-          - MOP
-          - MRU
-          - MUR
-          - MVR
-          - MWK
-          - MXN
-          - MXV
-          - MYR
-          - MZN
-          - NAD
-          - NGN
-          - NIO
-          - NOK
-          - NPR
-          - NZD
-          - OMR
-          - PAB
-          - PEN
-          - PGK
-          - PHP
-          - PKR
-          - PLN
-          - PYG
-          - QAR
-          - RON
-          - RSD
-          - RUB
-          - RWF
-          - SAR
-          - SBD
-          - SCR
-          - SDG
-          - SEK
-          - SGD
-          - SHP
-          - SLL
-          - SOS
-          - SRD
-          - SSP
-          - STN
-          - SVC
-          - SYP
-          - SZL
-          - THB
-          - TJS
-          - TMT
-          - TND
-          - TOP
-          - TRY
-          - TTD
-          - TWD
-          - TZS
-          - UAH
-          - UGX
-          - USD
-          - USN
-          - UYI
-          - UYU
-          - UYW
-          - UZS
-          - VES
-          - VND
-          - VUV
-          - WST
-          - XAF
-          - XAG
-          - XAU
-          - XBA
-          - XBB
-          - XBC
-          - XBD
-          - XCD
-          - XDR
-          - XOF
-          - XPD
-          - XPF
-          - XPT
-          - XSU
-          - XTS
-          - XUA
-          - XXX
-          - YER
-          - ZAR
-          - ZMW
-          - ZWL
-      required:
-      - amount
-      - currency
-      additionalProperties: false
-      x-instanceOf: Money
-    LowerLimit:
-      title: LowerLimit
-      description: The lower limit, the member cannot withdraw below this amount
-      example:
-        currency: GBP
-        amount: 1000
-      type: object
-      properties:
-        amount:
-          example: 1050
-          description: Price in lowest denomination of currency (e.g. cents)
-          type: integer
         currency:
           example: GBP
           description: ISO 4217 currency code
@@ -1804,45 +1575,32 @@ components:
       - accountHolder
       - iban
       additionalProperties: false
-    Withdrawal:
-      title: Withdrawal
-      description: A withdrawal is a completed On Demand Pay withdrawal from the member to their bank account
+    BankAccountUK:
+      title: BankAccountUK
+      example:
+        accountHolder: John Smith
+        sortCode: '123456'
+        accountNumber: '12345678'
+      description: A UK bank account
       type: object
       properties:
-        id:
-          example: w_<id>
-          description: The unique identifier for a PayWithdrawal, prefixed with w_
+        accountHolder:
           type: string
-        netAmount:
-          $ref: '#/components/schemas/WithdrawalNetAmount'
-        fee:
-          $ref: '#/components/schemas/WithdrawalFee'
-        payCycleId:
-          example: pc_<id>
-          description: The unique identifier for a PayCycle, prefixed with pc_
+        sortCode:
           type: string
-        memberId:
-          example: mem_<id>
-          description: The unique identifier for a Member, prefixed with mem_
+        accountNumber:
           type: string
-        createdAt:
-          type: string
-          format: date-time
-          pattern: ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))T(?:(?:[01]\d|2[0-3]):[0-5]\d(?::[0-5]\d(?:\.\d+)?)?(?:Z))$
       required:
-      - id
-      - netAmount
-      - fee
-      - payCycleId
-      - memberId
-      - createdAt
+      - accountHolder
+      - sortCode
+      - accountNumber
       additionalProperties: false
-    AvailableBalance:
-      title: AvailableBalance
-      description: The balance for the member
+    Fee:
+      title: Fee
+      description: A monetary value with currency.
       example:
         currency: GBP
-        amount: 12500
+        amount: 50
       type: object
       properties:
         amount:
@@ -2058,264 +1816,6 @@ components:
       - payCycleId
       - status
       additionalProperties: false
-    PayRun:
-      title: PayRun
-      description: A pay run is a list of members and the amount of money they are able to withdraw
-      example:
-        id: pr_<id>
-        payCycleId: pc_<id>
-        status: Scheduled
-        scheduledFor: '2024-01-01T00:00:00Z'
-      anyOf:
-      - $ref: '#/components/schemas/PayRunDraft'
-      - $ref: '#/components/schemas/PayRunReverted'
-      - $ref: '#/components/schemas/PayRunAvailable'
-      - $ref: '#/components/schemas/PayRunScheduled'
-    WithdrawalFee:
-      title: WithdrawalFee
-      description: The fee charged for the withdrawal
-      type: object
-      properties:
-        amount:
-          example: 1050
-          description: Price in lowest denomination of currency (e.g. cents)
-          type: integer
-          minimum: -9007199254740991
-          maximum: 9007199254740991
-        currency:
-          example: GBP
-          description: ISO 4217 currency code
-          type: string
-          enum:
-          - AED
-          - AFN
-          - ALL
-          - AMD
-          - ANG
-          - AOA
-          - ARS
-          - AUD
-          - AWG
-          - AZN
-          - BAM
-          - BBD
-          - BDT
-          - BGN
-          - BHD
-          - BIF
-          - BMD
-          - BND
-          - BOB
-          - BOV
-          - BRL
-          - BSD
-          - BTN
-          - BWP
-          - BYN
-          - BZD
-          - CAD
-          - CDF
-          - CHE
-          - CHF
-          - CHW
-          - CLF
-          - CLP
-          - CNY
-          - COP
-          - COU
-          - CRC
-          - CUC
-          - CUP
-          - CVE
-          - CZK
-          - DJF
-          - DKK
-          - DOP
-          - DZD
-          - EGP
-          - ERN
-          - ETB
-          - EUR
-          - FJD
-          - FKP
-          - GBP
-          - GEL
-          - GHS
-          - GIP
-          - GMD
-          - GNF
-          - GTQ
-          - GYD
-          - HKD
-          - HNL
-          - HRK
-          - HTG
-          - HUF
-          - IDR
-          - ILS
-          - INR
-          - IQD
-          - IRR
-          - ISK
-          - JMD
-          - JOD
-          - JPY
-          - KES
-          - KGS
-          - KHR
-          - KMF
-          - KPW
-          - KRW
-          - KWD
-          - KYD
-          - KZT
-          - LAK
-          - LBP
-          - LKR
-          - LRD
-          - LSL
-          - LYD
-          - MAD
-          - MDL
-          - MGA
-          - MKD
-          - MMK
-          - MNT
-          - MOP
-          - MRU
-          - MUR
-          - MVR
-          - MWK
-          - MXN
-          - MXV
-          - MYR
-          - MZN
-          - NAD
-          - NGN
-          - NIO
-          - NOK
-          - NPR
-          - NZD
-          - OMR
-          - PAB
-          - PEN
-          - PGK
-          - PHP
-          - PKR
-          - PLN
-          - PYG
-          - QAR
-          - RON
-          - RSD
-          - RUB
-          - RWF
-          - SAR
-          - SBD
-          - SCR
-          - SDG
-          - SEK
-          - SGD
-          - SHP
-          - SLL
-          - SOS
-          - SRD
-          - SSP
-          - STN
-          - SVC
-          - SYP
-          - SZL
-          - THB
-          - TJS
-          - TMT
-          - TND
-          - TOP
-          - TRY
-          - TTD
-          - TWD
-          - TZS
-          - UAH
-          - UGX
-          - USD
-          - USN
-          - UYI
-          - UYU
-          - UYW
-          - UZS
-          - VES
-          - VND
-          - VUV
-          - WST
-          - XAF
-          - XAG
-          - XAU
-          - XBA
-          - XBB
-          - XBC
-          - XBD
-          - XCD
-          - XDR
-          - XOF
-          - XPD
-          - XPF
-          - XPT
-          - XSU
-          - XTS
-          - XUA
-          - XXX
-          - YER
-          - ZAR
-          - ZMW
-          - ZWL
-      required:
-      - amount
-      - currency
-      additionalProperties: false
-      x-instanceOf: Money
-    PayRunScheduled:
-      title: PayRunScheduled
-      description: A pay run that is scheduled to run at a future date
-      type: object
-      properties:
-        id:
-          type: string
-        payCycleId:
-          example: pc_<id>
-          description: The unique identifier for a PayCycle, prefixed with pc_
-          type: string
-        status:
-          type: string
-          enum:
-          - Scheduled
-        scheduledFor:
-          type: string
-          format: date-time
-          pattern: ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))T(?:(?:[01]\d|2[0-3]):[0-5]\d(?::[0-5]\d(?:\.\d+)?)?(?:Z))$
-      required:
-      - id
-      - payCycleId
-      - status
-      - scheduledFor
-      additionalProperties: false
-    PayRunDraft:
-      title: PayRunDraft
-      description: A pay run that is in draft status
-      type: object
-      properties:
-        id:
-          type: string
-        payCycleId:
-          example: pc_<id>
-          description: The unique identifier for a PayCycle, prefixed with pc_
-          type: string
-        status:
-          type: string
-          enum:
-          - Draft
-      required:
-      - id
-      - payCycleId
-      - status
-      additionalProperties: false
     Money:
       title: Money
       description: A monetary value with currency.
@@ -2327,207 +1827,6 @@ components:
           type: integer
           minimum: -9007199254740991
           maximum: 9007199254740991
-        currency:
-          example: GBP
-          description: ISO 4217 currency code
-          type: string
-          enum:
-          - AED
-          - AFN
-          - ALL
-          - AMD
-          - ANG
-          - AOA
-          - ARS
-          - AUD
-          - AWG
-          - AZN
-          - BAM
-          - BBD
-          - BDT
-          - BGN
-          - BHD
-          - BIF
-          - BMD
-          - BND
-          - BOB
-          - BOV
-          - BRL
-          - BSD
-          - BTN
-          - BWP
-          - BYN
-          - BZD
-          - CAD
-          - CDF
-          - CHE
-          - CHF
-          - CHW
-          - CLF
-          - CLP
-          - CNY
-          - COP
-          - COU
-          - CRC
-          - CUC
-          - CUP
-          - CVE
-          - CZK
-          - DJF
-          - DKK
-          - DOP
-          - DZD
-          - EGP
-          - ERN
-          - ETB
-          - EUR
-          - FJD
-          - FKP
-          - GBP
-          - GEL
-          - GHS
-          - GIP
-          - GMD
-          - GNF
-          - GTQ
-          - GYD
-          - HKD
-          - HNL
-          - HRK
-          - HTG
-          - HUF
-          - IDR
-          - ILS
-          - INR
-          - IQD
-          - IRR
-          - ISK
-          - JMD
-          - JOD
-          - JPY
-          - KES
-          - KGS
-          - KHR
-          - KMF
-          - KPW
-          - KRW
-          - KWD
-          - KYD
-          - KZT
-          - LAK
-          - LBP
-          - LKR
-          - LRD
-          - LSL
-          - LYD
-          - MAD
-          - MDL
-          - MGA
-          - MKD
-          - MMK
-          - MNT
-          - MOP
-          - MRU
-          - MUR
-          - MVR
-          - MWK
-          - MXN
-          - MXV
-          - MYR
-          - MZN
-          - NAD
-          - NGN
-          - NIO
-          - NOK
-          - NPR
-          - NZD
-          - OMR
-          - PAB
-          - PEN
-          - PGK
-          - PHP
-          - PKR
-          - PLN
-          - PYG
-          - QAR
-          - RON
-          - RSD
-          - RUB
-          - RWF
-          - SAR
-          - SBD
-          - SCR
-          - SDG
-          - SEK
-          - SGD
-          - SHP
-          - SLL
-          - SOS
-          - SRD
-          - SSP
-          - STN
-          - SVC
-          - SYP
-          - SZL
-          - THB
-          - TJS
-          - TMT
-          - TND
-          - TOP
-          - TRY
-          - TTD
-          - TWD
-          - TZS
-          - UAH
-          - UGX
-          - USD
-          - USN
-          - UYI
-          - UYU
-          - UYW
-          - UZS
-          - VES
-          - VND
-          - VUV
-          - WST
-          - XAF
-          - XAG
-          - XAU
-          - XBA
-          - XBB
-          - XBC
-          - XBD
-          - XCD
-          - XDR
-          - XOF
-          - XPD
-          - XPF
-          - XPT
-          - XSU
-          - XTS
-          - XUA
-          - XXX
-          - YER
-          - ZAR
-          - ZMW
-          - ZWL
-      required:
-      - amount
-      - currency
-      additionalProperties: false
-      x-instanceOf: Money
-    UpperLimit:
-      title: UpperLimit
-      description: The upper limit, the member cannot have more than this amount
-      example:
-        currency: GBP
-        amount: 20000
-      type: object
-      properties:
-        amount:
-          example: 1050
-          description: Price in lowest denomination of currency (e.g. cents)
-          type: integer
         currency:
           example: GBP
           description: ISO 4217 currency code
@@ -2918,6 +2217,708 @@ components:
       - currency
       additionalProperties: false
       x-instanceOf: Money
+    Withdrawal:
+      title: Withdrawal
+      description: A withdrawal is a completed On Demand Pay withdrawal from the member to their bank account
+      type: object
+      properties:
+        id:
+          example: w_<id>
+          description: The unique identifier for a PayWithdrawal, prefixed with w_
+          type: string
+        netAmount:
+          $ref: '#/components/schemas/WithdrawalNetAmount'
+        fee:
+          $ref: '#/components/schemas/WithdrawalFee'
+        payCycleId:
+          example: pc_<id>
+          description: The unique identifier for a PayCycle, prefixed with pc_
+          type: string
+        memberId:
+          example: mem_<id>
+          description: The unique identifier for a Member, prefixed with mem_
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+          pattern: ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))T(?:(?:[01]\d|2[0-3]):[0-5]\d(?::[0-5]\d(?:\.\d+)?)?(?:Z))$
+      required:
+      - id
+      - netAmount
+      - fee
+      - payCycleId
+      - memberId
+      - createdAt
+      additionalProperties: false
+    LowerLimit:
+      title: LowerLimit
+      description: The lower limit, the member cannot withdraw below this amount
+      example:
+        currency: GBP
+        amount: 1000
+      type: object
+      properties:
+        amount:
+          example: 1050
+          description: Price in lowest denomination of currency (e.g. cents)
+          type: integer
+        currency:
+          example: GBP
+          description: ISO 4217 currency code
+          type: string
+          enum:
+          - AED
+          - AFN
+          - ALL
+          - AMD
+          - ANG
+          - AOA
+          - ARS
+          - AUD
+          - AWG
+          - AZN
+          - BAM
+          - BBD
+          - BDT
+          - BGN
+          - BHD
+          - BIF
+          - BMD
+          - BND
+          - BOB
+          - BOV
+          - BRL
+          - BSD
+          - BTN
+          - BWP
+          - BYN
+          - BZD
+          - CAD
+          - CDF
+          - CHE
+          - CHF
+          - CHW
+          - CLF
+          - CLP
+          - CNY
+          - COP
+          - COU
+          - CRC
+          - CUC
+          - CUP
+          - CVE
+          - CZK
+          - DJF
+          - DKK
+          - DOP
+          - DZD
+          - EGP
+          - ERN
+          - ETB
+          - EUR
+          - FJD
+          - FKP
+          - GBP
+          - GEL
+          - GHS
+          - GIP
+          - GMD
+          - GNF
+          - GTQ
+          - GYD
+          - HKD
+          - HNL
+          - HRK
+          - HTG
+          - HUF
+          - IDR
+          - ILS
+          - INR
+          - IQD
+          - IRR
+          - ISK
+          - JMD
+          - JOD
+          - JPY
+          - KES
+          - KGS
+          - KHR
+          - KMF
+          - KPW
+          - KRW
+          - KWD
+          - KYD
+          - KZT
+          - LAK
+          - LBP
+          - LKR
+          - LRD
+          - LSL
+          - LYD
+          - MAD
+          - MDL
+          - MGA
+          - MKD
+          - MMK
+          - MNT
+          - MOP
+          - MRU
+          - MUR
+          - MVR
+          - MWK
+          - MXN
+          - MXV
+          - MYR
+          - MZN
+          - NAD
+          - NGN
+          - NIO
+          - NOK
+          - NPR
+          - NZD
+          - OMR
+          - PAB
+          - PEN
+          - PGK
+          - PHP
+          - PKR
+          - PLN
+          - PYG
+          - QAR
+          - RON
+          - RSD
+          - RUB
+          - RWF
+          - SAR
+          - SBD
+          - SCR
+          - SDG
+          - SEK
+          - SGD
+          - SHP
+          - SLL
+          - SOS
+          - SRD
+          - SSP
+          - STN
+          - SVC
+          - SYP
+          - SZL
+          - THB
+          - TJS
+          - TMT
+          - TND
+          - TOP
+          - TRY
+          - TTD
+          - TWD
+          - TZS
+          - UAH
+          - UGX
+          - USD
+          - USN
+          - UYI
+          - UYU
+          - UYW
+          - UZS
+          - VES
+          - VND
+          - VUV
+          - WST
+          - XAF
+          - XAG
+          - XAU
+          - XBA
+          - XBB
+          - XBC
+          - XBD
+          - XCD
+          - XDR
+          - XOF
+          - XPD
+          - XPF
+          - XPT
+          - XSU
+          - XTS
+          - XUA
+          - XXX
+          - YER
+          - ZAR
+          - ZMW
+          - ZWL
+      required:
+      - amount
+      - currency
+      additionalProperties: false
+      x-instanceOf: Money
+    Total:
+      title: Total
+      description: The amount deducted for the member, inclusive of fees
+      example:
+        currency: GBP
+        amount: 1000
+      type: object
+      properties:
+        amount:
+          example: 1050
+          description: Price in lowest denomination of currency (e.g. cents)
+          type: integer
+          minimum: -9007199254740991
+          maximum: 9007199254740991
+        currency:
+          example: GBP
+          description: ISO 4217 currency code
+          type: string
+          enum:
+          - AED
+          - AFN
+          - ALL
+          - AMD
+          - ANG
+          - AOA
+          - ARS
+          - AUD
+          - AWG
+          - AZN
+          - BAM
+          - BBD
+          - BDT
+          - BGN
+          - BHD
+          - BIF
+          - BMD
+          - BND
+          - BOB
+          - BOV
+          - BRL
+          - BSD
+          - BTN
+          - BWP
+          - BYN
+          - BZD
+          - CAD
+          - CDF
+          - CHE
+          - CHF
+          - CHW
+          - CLF
+          - CLP
+          - CNY
+          - COP
+          - COU
+          - CRC
+          - CUC
+          - CUP
+          - CVE
+          - CZK
+          - DJF
+          - DKK
+          - DOP
+          - DZD
+          - EGP
+          - ERN
+          - ETB
+          - EUR
+          - FJD
+          - FKP
+          - GBP
+          - GEL
+          - GHS
+          - GIP
+          - GMD
+          - GNF
+          - GTQ
+          - GYD
+          - HKD
+          - HNL
+          - HRK
+          - HTG
+          - HUF
+          - IDR
+          - ILS
+          - INR
+          - IQD
+          - IRR
+          - ISK
+          - JMD
+          - JOD
+          - JPY
+          - KES
+          - KGS
+          - KHR
+          - KMF
+          - KPW
+          - KRW
+          - KWD
+          - KYD
+          - KZT
+          - LAK
+          - LBP
+          - LKR
+          - LRD
+          - LSL
+          - LYD
+          - MAD
+          - MDL
+          - MGA
+          - MKD
+          - MMK
+          - MNT
+          - MOP
+          - MRU
+          - MUR
+          - MVR
+          - MWK
+          - MXN
+          - MXV
+          - MYR
+          - MZN
+          - NAD
+          - NGN
+          - NIO
+          - NOK
+          - NPR
+          - NZD
+          - OMR
+          - PAB
+          - PEN
+          - PGK
+          - PHP
+          - PKR
+          - PLN
+          - PYG
+          - QAR
+          - RON
+          - RSD
+          - RUB
+          - RWF
+          - SAR
+          - SBD
+          - SCR
+          - SDG
+          - SEK
+          - SGD
+          - SHP
+          - SLL
+          - SOS
+          - SRD
+          - SSP
+          - STN
+          - SVC
+          - SYP
+          - SZL
+          - THB
+          - TJS
+          - TMT
+          - TND
+          - TOP
+          - TRY
+          - TTD
+          - TWD
+          - TZS
+          - UAH
+          - UGX
+          - USD
+          - USN
+          - UYI
+          - UYU
+          - UYW
+          - UZS
+          - VES
+          - VND
+          - VUV
+          - WST
+          - XAF
+          - XAG
+          - XAU
+          - XBA
+          - XBB
+          - XBC
+          - XBD
+          - XCD
+          - XDR
+          - XOF
+          - XPD
+          - XPF
+          - XPT
+          - XSU
+          - XTS
+          - XUA
+          - XXX
+          - YER
+          - ZAR
+          - ZMW
+          - ZWL
+      required:
+      - amount
+      - currency
+      additionalProperties: false
+      x-instanceOf: Money
+    PayRunDraft:
+      title: PayRunDraft
+      description: A pay run that is in draft status
+      type: object
+      properties:
+        id:
+          type: string
+        payCycleId:
+          example: pc_<id>
+          description: The unique identifier for a PayCycle, prefixed with pc_
+          type: string
+        status:
+          type: string
+          enum:
+          - Draft
+      required:
+      - id
+      - payCycleId
+      - status
+      additionalProperties: false
+    PayRunAvailable:
+      title: PayRunAvailable
+      description: A pay run that is available for withdrawal
+      type: object
+      properties:
+        id:
+          type: string
+        payCycleId:
+          example: pc_<id>
+          description: The unique identifier for a PayCycle, prefixed with pc_
+          type: string
+        status:
+          type: string
+          enum:
+          - Available
+      required:
+      - id
+      - payCycleId
+      - status
+      additionalProperties: false
+    WithdrawalNetAmount:
+      title: WithdrawalNetAmount
+      description: The amount of money the member received after fees
+      type: object
+      properties:
+        amount:
+          example: 1050
+          description: Price in lowest denomination of currency (e.g. cents)
+          type: integer
+          minimum: -9007199254740991
+          maximum: 9007199254740991
+        currency:
+          example: GBP
+          description: ISO 4217 currency code
+          type: string
+          enum:
+          - AED
+          - AFN
+          - ALL
+          - AMD
+          - ANG
+          - AOA
+          - ARS
+          - AUD
+          - AWG
+          - AZN
+          - BAM
+          - BBD
+          - BDT
+          - BGN
+          - BHD
+          - BIF
+          - BMD
+          - BND
+          - BOB
+          - BOV
+          - BRL
+          - BSD
+          - BTN
+          - BWP
+          - BYN
+          - BZD
+          - CAD
+          - CDF
+          - CHE
+          - CHF
+          - CHW
+          - CLF
+          - CLP
+          - CNY
+          - COP
+          - COU
+          - CRC
+          - CUC
+          - CUP
+          - CVE
+          - CZK
+          - DJF
+          - DKK
+          - DOP
+          - DZD
+          - EGP
+          - ERN
+          - ETB
+          - EUR
+          - FJD
+          - FKP
+          - GBP
+          - GEL
+          - GHS
+          - GIP
+          - GMD
+          - GNF
+          - GTQ
+          - GYD
+          - HKD
+          - HNL
+          - HRK
+          - HTG
+          - HUF
+          - IDR
+          - ILS
+          - INR
+          - IQD
+          - IRR
+          - ISK
+          - JMD
+          - JOD
+          - JPY
+          - KES
+          - KGS
+          - KHR
+          - KMF
+          - KPW
+          - KRW
+          - KWD
+          - KYD
+          - KZT
+          - LAK
+          - LBP
+          - LKR
+          - LRD
+          - LSL
+          - LYD
+          - MAD
+          - MDL
+          - MGA
+          - MKD
+          - MMK
+          - MNT
+          - MOP
+          - MRU
+          - MUR
+          - MVR
+          - MWK
+          - MXN
+          - MXV
+          - MYR
+          - MZN
+          - NAD
+          - NGN
+          - NIO
+          - NOK
+          - NPR
+          - NZD
+          - OMR
+          - PAB
+          - PEN
+          - PGK
+          - PHP
+          - PKR
+          - PLN
+          - PYG
+          - QAR
+          - RON
+          - RSD
+          - RUB
+          - RWF
+          - SAR
+          - SBD
+          - SCR
+          - SDG
+          - SEK
+          - SGD
+          - SHP
+          - SLL
+          - SOS
+          - SRD
+          - SSP
+          - STN
+          - SVC
+          - SYP
+          - SZL
+          - THB
+          - TJS
+          - TMT
+          - TND
+          - TOP
+          - TRY
+          - TTD
+          - TWD
+          - TZS
+          - UAH
+          - UGX
+          - USD
+          - USN
+          - UYI
+          - UYU
+          - UYW
+          - UZS
+          - VES
+          - VND
+          - VUV
+          - WST
+          - XAF
+          - XAG
+          - XAU
+          - XBA
+          - XBB
+          - XBC
+          - XBD
+          - XCD
+          - XDR
+          - XOF
+          - XPD
+          - XPF
+          - XPT
+          - XSU
+          - XTS
+          - XUA
+          - XXX
+          - YER
+          - ZAR
+          - ZMW
+          - ZWL
+      required:
+      - amount
+      - currency
+      additionalProperties: false
+      x-instanceOf: Money
+    PayRunScheduled:
+      title: PayRunScheduled
+      description: A pay run that is scheduled to run at a future date
+      type: object
+      properties:
+        id:
+          type: string
+        payCycleId:
+          example: pc_<id>
+          description: The unique identifier for a PayCycle, prefixed with pc_
+          type: string
+        status:
+          type: string
+          enum:
+          - Scheduled
+        scheduledFor:
+          type: string
+          format: date-time
+          pattern: ^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))T(?:(?:[01]\d|2[0-3]):[0-5]\d(?::[0-5]\d(?:\.\d+)?)?(?:Z))$
+      required:
+      - id
+      - payCycleId
+      - status
+      - scheduledFor
+      additionalProperties: false
   securitySchemes:
     apiKey:
       type: apiKey

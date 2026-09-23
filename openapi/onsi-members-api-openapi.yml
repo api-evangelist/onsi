@@ -1,6 +1,6 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  title: BMO Partner members API
+  title: BMO Partner Members API
   version: v1
 servers:
 - url: https://api.onsi.com
@@ -10,12 +10,12 @@ servers:
 security:
 - apiKey: []
 tags:
-- name: members
+- name: Members
 paths:
   /v1/members:
     get:
       tags:
-      - members
+      - Members
       parameters:
       - name: memberIds
         in: query
@@ -93,9 +93,11 @@ paths:
                 - skip
                 - take
                 additionalProperties: false
+      summary: Get members
+      x-summary-source: derived
     post:
       tags:
-      - members
+      - Members
       parameters:
       - name: x-idempotency-key
         in: header
@@ -171,7 +173,6 @@ paths:
                       - accountHolder
                       - iban
                       additionalProperties: false
-                    nullable: true
                 enablePayroll:
                   type: boolean
                 dob:
@@ -182,12 +183,13 @@ paths:
                 gender:
                   anyOf:
                   - description: Gender of the member
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     enum:
                     - Female
                     - Male
                     - NonBinary
-                    nullable: true
               required:
               - email
               - firstName
@@ -201,10 +203,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Member'
+      summary: Invite member
+      x-summary-source: derived
   /v1/members/{id}:
     get:
       tags:
-      - members
+      - Members
       parameters:
       - name: id
         in: path
@@ -221,9 +225,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Member'
+      summary: Get member
+      x-summary-source: derived
     patch:
       tags:
-      - members
+      - Members
       parameters:
       - name: id
         in: path
@@ -263,8 +269,9 @@ paths:
                   anyOf:
                   - example: ID_123
                     description: Unique ID provided by API consumer, must be unique across all members (active, invited and inactive)
-                    type: string
-                    nullable: true
+                    type:
+                    - string
+                    - 'null'
                 tier:
                   description: Tier name
                   type: string
@@ -305,7 +312,6 @@ paths:
                       - accountHolder
                       - iban
                       additionalProperties: false
-                    nullable: true
                 enablePayroll:
                   type: boolean
                 dob:
@@ -316,12 +322,13 @@ paths:
                 gender:
                   anyOf:
                   - description: Gender of the member
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     enum:
                     - Female
                     - Male
                     - NonBinary
-                    nullable: true
               additionalProperties: false
       responses:
         '200':
@@ -330,9 +337,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Member'
+      summary: Update member
+      x-summary-source: derived
     put:
       tags:
-      - members
+      - Members
       parameters:
       - name: id
         in: path
@@ -415,7 +424,6 @@ paths:
                       - accountHolder
                       - iban
                       additionalProperties: false
-                    nullable: true
                 enablePayroll:
                   type: boolean
                 dob:
@@ -426,12 +434,13 @@ paths:
                 gender:
                   anyOf:
                   - description: Gender of the member
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     enum:
                     - Female
                     - Male
                     - NonBinary
-                    nullable: true
               required:
               - email
               - firstName
@@ -445,9 +454,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Member'
+      summary: Replace member
+      x-summary-source: derived
     delete:
       tags:
-      - members
+      - Members
       parameters:
       - name: id
         in: path
@@ -477,10 +488,12 @@ paths:
                 required:
                 - message
                 additionalProperties: false
+      summary: Remove member
+      x-summary-source: derived
   /v1/members/jobs/csv:
     put:
       tags:
-      - members
+      - Members
       parameters:
       - name: x-idempotency-key
         in: header
@@ -502,10 +515,12 @@ paths:
                 required:
                 - jobId
                 additionalProperties: false
+      summary: Create job from csv
+      x-summary-source: derived
   /v2/members/jobs/csv:
     put:
       tags:
-      - members
+      - Members
       parameters:
       - name: x-idempotency-key
         in: header
@@ -527,10 +542,12 @@ paths:
                 required:
                 - jobId
                 additionalProperties: false
+      summary: Create job from csv V2
+      x-summary-source: derived
   /v1/members/jobs/{jobId}:
     get:
       tags:
-      - members
+      - Members
       parameters:
       - name: jobId
         in: path
@@ -584,10 +601,12 @@ paths:
                 - progress
                 - createdAt
                 additionalProperties: false
+      summary: Get job
+      x-summary-source: derived
   /v1/members/jobs:
     post:
       tags:
-      - members
+      - Members
       parameters:
       - name: x-idempotency-key
         in: header
@@ -672,7 +691,6 @@ paths:
                               - accountHolder
                               - iban
                               additionalProperties: false
-                            nullable: true
                         enablePayroll:
                           type: boolean
                         dob:
@@ -683,12 +701,13 @@ paths:
                         gender:
                           anyOf:
                           - description: Gender of the member
-                            type: string
+                            type:
+                            - string
+                            - 'null'
                             enum:
                             - Female
                             - Male
                             - NonBinary
-                            nullable: true
                         type:
                           type: string
                           enum:
@@ -765,7 +784,6 @@ paths:
                               - accountHolder
                               - iban
                               additionalProperties: false
-                            nullable: true
                         enablePayroll:
                           type: boolean
                         dob:
@@ -776,12 +794,13 @@ paths:
                         gender:
                           anyOf:
                           - description: Gender of the member
-                            type: string
+                            type:
+                            - string
+                            - 'null'
                             enum:
                             - Female
                             - Male
                             - NonBinary
-                            nullable: true
                         type:
                           type: string
                           enum:
@@ -820,8 +839,9 @@ paths:
                           anyOf:
                           - example: ID_123
                             description: Unique ID provided by API consumer, must be unique across all members (active, invited and inactive)
-                            type: string
-                            nullable: true
+                            type:
+                            - string
+                            - 'null'
                         tier:
                           description: Tier name
                           type: string
@@ -862,7 +882,6 @@ paths:
                               - accountHolder
                               - iban
                               additionalProperties: false
-                            nullable: true
                         enablePayroll:
                           type: boolean
                         dob:
@@ -873,12 +892,13 @@ paths:
                         gender:
                           anyOf:
                           - description: Gender of the member
-                            type: string
+                            type:
+                            - string
+                            - 'null'
                             enum:
                             - Female
                             - Male
                             - NonBinary
-                            nullable: true
                         type:
                           type: string
                           enum:
@@ -924,10 +944,12 @@ paths:
                 required:
                 - jobId
                 additionalProperties: false
+      summary: Create job
+      x-summary-source: derived
   /v1/tiers:
     get:
       tags:
-      - members
+      - Members
       operationId: getTiers
       responses:
         '200':
@@ -938,6 +960,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Tier'
+      summary: Get tiers
+      x-summary-source: derived
 components:
   schemas:
     BankAccountUK:
@@ -982,8 +1006,9 @@ components:
         phone:
           example: '+447123456789'
           anyOf:
-          - type: string
-            nullable: true
+          - type:
+            - string
+            - 'null'
         tier:
           example: Gold
           description: Tier name for the member
@@ -992,8 +1017,9 @@ components:
           anyOf:
           - example: ID_123
             description: Unique ID provided by API consumer, must be unique across all members (active, invited and inactive)
-            type: string
-            nullable: true
+            type:
+            - string
+            - 'null'
         status:
           description: The status of the member.
           type: string
@@ -1006,27 +1032,28 @@ components:
           - anyOf:
             - $ref: '#/components/schemas/BankAccountUK'
             - $ref: '#/components/schemas/BankAccountEU'
-            nullable: true
         enablePayroll:
           example: true
           type: boolean
         gender:
           anyOf:
           - description: Gender of the member
-            type: string
+            type:
+            - string
+            - 'null'
             enum:
             - Female
             - Male
             - NonBinary
-            nullable: true
         dob:
           example: '1990-01-01'
           description: Date of birth of the member, must later than 1900
           anyOf:
           - description: Date in ISO8601 `YYYY-MM-DD` format
-            type: string
+            type:
+            - string
+            - 'null'
             pattern: ^\d{4}-\d{2}-\d{2}$
-            nullable: true
       required:
       - email
       - memberId
