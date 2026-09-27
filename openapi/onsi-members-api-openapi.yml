@@ -964,26 +964,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    BankAccountUK:
-      title: BankAccountUK
-      example:
-        accountHolder: John Smith
-        sortCode: '123456'
-        accountNumber: '12345678'
-      description: A UK bank account
-      type: object
-      properties:
-        accountHolder:
-          type: string
-        sortCode:
-          type: string
-        accountNumber:
-          type: string
-      required:
-      - accountHolder
-      - sortCode
-      - accountNumber
-      additionalProperties: false
     Member:
       title: Member
       description: A member on the platform.
@@ -1094,6 +1074,26 @@ components:
       required:
       - accountHolder
       - iban
+      additionalProperties: false
+    BankAccountUK:
+      title: BankAccountUK
+      example:
+        accountHolder: John Smith
+        sortCode: '123456'
+        accountNumber: '12345678'
+      description: A UK bank account
+      type: object
+      properties:
+        accountHolder:
+          type: string
+        sortCode:
+          type: string
+        accountNumber:
+          type: string
+      required:
+      - accountHolder
+      - sortCode
+      - accountNumber
       additionalProperties: false
   securitySchemes:
     apiKey:

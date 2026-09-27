@@ -73,7 +73,7 @@ tags_raw:
 - Health
 apis:
 - aid: onsi:onsi-members-api
-  name: Onsi members API
+  name: Onsi Members API
   description: The members API from Onsi — 7 operation(s) for members.
   humanURL: https://docs.onsi.com
   baseURL: https://api.onsi.com
@@ -89,7 +89,7 @@ apis:
   - type: APIReference
     url: https://docs.onsi.com/api-reference/introduction
 - aid: onsi:onsi-pay-api
-  name: Onsi pay API
+  name: Onsi Pay API
   description: The pay API from Onsi — 9 operation(s) for pay.
   humanURL: https://docs.onsi.com
   baseURL: https://api.onsi.com
