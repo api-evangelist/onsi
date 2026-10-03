@@ -964,6 +964,54 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    BankAccountEU:
+      title: BankAccountEU
+      example:
+        accountHolder: John Smith
+        iban: GB29NWBK60161331926819
+      description: A EU bank account
+      type: object
+      properties:
+        accountHolder:
+          type: string
+        iban:
+          type: string
+      required:
+      - accountHolder
+      - iban
+      additionalProperties: false
+    BankAccountUK:
+      title: BankAccountUK
+      example:
+        accountHolder: John Smith
+        sortCode: '123456'
+        accountNumber: '12345678'
+      description: A UK bank account
+      type: object
+      properties:
+        accountHolder:
+          type: string
+        sortCode:
+          type: string
+        accountNumber:
+          type: string
+      required:
+      - accountHolder
+      - sortCode
+      - accountNumber
+      additionalProperties: false
+    Tier:
+      title: Tier
+      description: A group within the platform that members can be assigned to, tiers can have different offerings
+      type: object
+      properties:
+        name:
+          example: Gold
+          description: The name of the tier
+          type: string
+      required:
+      - name
+      additionalProperties: false
     Member:
       title: Member
       description: A member on the platform.
@@ -1046,54 +1094,6 @@ components:
       - accountDetails
       - enablePayroll
       - dob
-      additionalProperties: false
-    Tier:
-      title: Tier
-      description: A group within the platform that members can be assigned to, tiers can have different offerings
-      type: object
-      properties:
-        name:
-          example: Gold
-          description: The name of the tier
-          type: string
-      required:
-      - name
-      additionalProperties: false
-    BankAccountEU:
-      title: BankAccountEU
-      example:
-        accountHolder: John Smith
-        iban: GB29NWBK60161331926819
-      description: A EU bank account
-      type: object
-      properties:
-        accountHolder:
-          type: string
-        iban:
-          type: string
-      required:
-      - accountHolder
-      - iban
-      additionalProperties: false
-    BankAccountUK:
-      title: BankAccountUK
-      example:
-        accountHolder: John Smith
-        sortCode: '123456'
-        accountNumber: '12345678'
-      description: A UK bank account
-      type: object
-      properties:
-        accountHolder:
-          type: string
-        sortCode:
-          type: string
-        accountNumber:
-          type: string
-      required:
-      - accountHolder
-      - sortCode
-      - accountNumber
       additionalProperties: false
   securitySchemes:
     apiKey:
