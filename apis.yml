@@ -60,6 +60,7 @@ tags:
 - Workforce
 - Human Resources
 - Health
+- Employee Benefits
 tags_raw:
 - Company
 - Benefits
@@ -71,6 +72,7 @@ tags_raw:
 - Workforce
 - HR
 - Health
+- Employee Benefits
 apis:
 - aid: onsi:onsi-members-api
   name: Onsi Members API
